@@ -83,6 +83,15 @@ pre.ascii-logo {
     transform-origin: center top;
   }
 }
+  @media (max-width: 900px) {
+  pre.ascii-logo {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    transform-origin: center top;
+  }
+}
+
 
 /* ================= BUTTONS ================= */
 
@@ -115,7 +124,7 @@ pre.ascii-logo {
     120deg,
     transparent 20%,
     rgba(124,243,255,0.5),
-    transparent 80%
+    transparent 30%
   );
   transform: translateX(-120%);
   animation: sweep 3s infinite;
