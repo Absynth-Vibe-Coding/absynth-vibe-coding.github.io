@@ -36,7 +36,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 300px; /* only behind header */
   pointer-events: none;
   z-index: -1;
 }
@@ -47,17 +47,17 @@ a:hover { text-decoration: underline; }
 
 /* ASCII Logo Header */
 header {
-  padding: 80px 16px 80px;
+  padding: 100px 24px 80px;
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
-  position: relative;
 }
 
+/* Glitch effect */
 header pre.ascii-logo {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 1.1rem;
-  line-height: 1.0;
+  font-size: 1.3rem;
+  line-height: 1.1;
   color: var(--accent);
   text-shadow:
     0 0 6px var(--accent),
@@ -67,22 +67,17 @@ header pre.ascii-logo {
   display: inline-block;
   position: relative;
   animation: glitch 2s infinite;
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-width: 95%;
-  overflow: hidden;
 }
 
-/* Glitch keyframes */
 @keyframes glitch {
   0% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
-  10% { clip: rect(5px, 9999px, 80px, 0); transform: translate(-1px, -1px);}
-  20% { clip: rect(15px, 9999px, 70px, 0); transform: translate(1px, 1px);}
+  10% { clip: rect(5px, 9999px, 80px, 0); transform: translate(-2px, -2px);}
+  20% { clip: rect(15px, 9999px, 70px, 0); transform: translate(2px, 2px);}
   30% { clip: rect(35px, 9999px, 60px, 0); transform: translate(-1px, 1px);}
   40% { clip: rect(45px, 9999px, 50px, 0); transform: translate(1px, -1px);}
   50% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
-  60% { clip: rect(25px, 9999px, 55px, 0); transform: translate(-1px, 1px);}
-  70% { clip: rect(10px, 9999px, 65px, 0); transform: translate(1px, -1px);}
+  60% { clip: rect(25px, 9999px, 55px, 0); transform: translate(-2px, 1px);}
+  70% { clip: rect(10px, 9999px, 65px, 0); transform: translate(2px, -1px);}
   80% { clip: rect(40px, 9999px, 60px, 0); transform: translate(-1px, 2px);}
   90% { clip: rect(20px, 9999px, 50px, 0); transform: translate(1px, -2px);}
   100% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
@@ -146,12 +141,11 @@ section p.lead {
 }
 
 /* Cards */
-.cards, .featured-cards {
+.cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
 }
-
 .card {
   background: var(--panel);
   border: 1px solid rgba(255,255,255,0.08);
@@ -167,6 +161,13 @@ section p.lead {
 .card h3 { margin-bottom: 12px; font-size: 1.25rem; }
 .card p { color: var(--muted); }
 
+/* Featured Node Cards */
+.featured-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 36px;
+  margin-top: 40px;
+}
 .card.featured {
   background: rgba(20,20,30,0.85);
   border: 1px solid rgba(255,255,255,0.12);
@@ -185,13 +186,14 @@ section p.lead {
 
 /* Video Section */
 .videos {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 32px;
 }
-.video-large {
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
+
+.video {
+  position: relative;
+  padding-top: 56.25%;
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.2);
@@ -199,23 +201,11 @@ section p.lead {
   box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.video-large:hover { transform: scale(1.02); }
-.video-row {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+.video:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 32px var(--accent), 0 0 64px var(--accent-2);
 }
-.video-row .video {
-  flex: 1;
-  min-width: calc(33.33% - 10px);
-  padding-top: 56.25%;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: linear-gradient(135deg, #0c0d1a 0%, #1a0022 100%);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
-}
-.video iframe, .video-large iframe {
+.video iframe {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -231,15 +221,6 @@ footer {
   color: var(--muted);
   border-top: 1px solid rgba(255,255,255,0.08);
   text-shadow: 0 0 2px #000;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  header pre.ascii-logo { font-size: 0.8rem; }
-  .video-row { flex-direction: column; }
-  .video-row .video { min-width: 100%; }
-  section { padding: 60px 16px; }
-  .cta { flex-direction: column; }
 }
 
 /* Import Orbitron font */
@@ -269,6 +250,7 @@ footer {
 <section id="nodes-featured">
   <h2>Featured ComfyUI Nodes</h2>
   <p class="lead">Explore Absynth's flagship ComfyUI nodes that take music and visual workflows to the next level.</p>
+
   <div class="featured-cards">
     <div class="card featured">
       <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/vst.png" alt="Absynth VST">
@@ -292,14 +274,10 @@ footer {
   <h2>Electric Dreams</h2>
   <p class="lead">Cinematic AI, cyberpunk aesthetics, music-driven visuals, and experimental generative art.</p>
   <div class="videos">
-    <div class="video-large">
-      <iframe src="https://www.youtube.com/embed/X1SB5PB1ZF8" allowfullscreen></iframe>
-    </div>
-    <div class="video-row">
-      <div class="video"><iframe src="https://www.youtube.com/embed/Rt3g1KvHbgQ" allowfullscreen></iframe></div>
-      <div class="video"><iframe src="https://www.youtube.com/embed/-4kXqLk-yMo" allowfullscreen></iframe></div>
-      <div class="video"><iframe src="https://www.youtube.com/embed/kaCOiCbT59Y" allowfullscreen></iframe></div>
-    </div>
+    <div class="video"><iframe src="https://www.youtube.com/embed/X1SB5PB1ZF8" allowfullscreen></iframe></div>
+    <div class="video"><iframe src="https://www.youtube.com/embed/Rt3g1KvHbgQ" allowfullscreen></iframe></div>
+    <div class="video"><iframe src="https://www.youtube.com/embed/-4kXqLk-yMo" allowfullscreen></iframe></div>
+    <div class="video"><iframe src="https://www.youtube.com/embed/kaCOiCbT59Y" allowfullscreen></iframe></div>
   </div>
 </section>
 
@@ -309,30 +287,29 @@ footer {
 // MATRIX RAIN
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = 300; // only header height
+const columns = Math.floor(w / 14);
+const drops = Array(columns).fill(1);
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = document.querySelector('header').offsetHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-const fontSize = 14;
-const columns = Math.floor(canvas.width / fontSize);
-const drops = Array(columns).fill(0);
+window.addEventListener('resize', ()=>{
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = 300;
+});
 
 function draw() {
-  ctx.fillStyle = 'rgba(10,11,20,0.08)'; // smooth fade
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(10,11,20,0.1)'; // transparent background
+  ctx.fillRect(0,0,w,h);
 
-  ctx.fillStyle = 'rgba(124,243,255,0.3)'; // Absynth color
-  ctx.font = `${fontSize}px monospace`;
+  ctx.fillStyle = 'rgba(124,243,255,0.3)'; // Absynth color with transparency
+  ctx.font = '14px monospace';
 
-  for (let i = 0; i < drops.length; i++) {
-    const text = String.fromCharCode(0x30A0 + Math.floor(Math.random() * 96));
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-    drops[i] += 0.25 + Math.random() * 0.2; // slower, smooth
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+  for(let i=0;i<drops.length;i++){
+    const text = String.fromCharCode(0x30A0 + Math.floor(Math.random()*96));
+    ctx.fillText(text, i*14, drops[i]*14);
+
+    if(drops[i]*14 > h && Math.random() > 0.975) drops[i]=0;
+    drops[i]++;
   }
 
   requestAnimationFrame(draw);
