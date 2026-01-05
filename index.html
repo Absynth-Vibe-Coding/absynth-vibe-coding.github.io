@@ -348,32 +348,6 @@ footer {
   </div>
 </section>
 
-<footer>© 2026 Absynth · Electric Dreams</footer>
-
-<script>
-/* ASCII MORPH */  
-const logo=document.getElementById('asciiLogo');
-const finalText=logo.textContent;
-const chars='█▓▒░<>/\\|=+*:.';
-let step=0;
-function morph(){let out='';for(let i=0;i<finalText.length;i++){out+=finalText[i]==='\n'||finalText[i]===' '?finalText[i]:i<step?finalText[i]:chars[Math.floor(Math.random()*chars.length)]}logo.textContent=out;step+=2;if(step<=finalText.length)requestAnimationFrame(morph);else logo.textContent=finalText}
-morph();
-
-/* MATRIX RAIN */
-const canvas=document.getElementById('matrixCanvas');
-const ctx=canvas.getContext('2d');
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
-resize();addEventListener('resize',resize);
-
-const fontSize=16;
-let columns=Math.floor(canvas.width/fontSize);
-let drops=Array(columns).fill(1);
-let hue=190;
-addEventListener('scroll',()=>{hue=190+Math.min(scrollY/500,1)*80});
-
-function draw(){ctx.fillStyle='rgba(7,8,18,0.08)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=`hsla(${hue},100%,70%,0.35)`;ctx.font=fontSize+'px monospace';for(let i=0;i<drops.length;i++){ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>canvas.height&&Math.random()>0.99)drops[i]=0;drops[i]+=0.35}requestAnimationFrame(draw)}draw();
-</script>
-
 <section id="youtube-shorts" style="padding: 2rem; background: #111; color: #fff;">
   <h2 style="font-family: Arial, sans-serif; margin-bottom: 1rem;">🎬 YouTube Shorts</h2>
   <p style="font-family: Arial, sans-serif; color: #aaa; margin-bottom: 1rem;">
@@ -412,6 +386,35 @@ function draw(){ctx.fillStyle='rgba(7,8,18,0.08)';ctx.fillRect(0,0,canvas.width,
     </a>
   </div>
 </section>
+
+  
+<footer>© 2026 Absynth · Electric Dreams</footer>
+
+<script>
+/* ASCII MORPH */  
+const logo=document.getElementById('asciiLogo');
+const finalText=logo.textContent;
+const chars='█▓▒░<>/\\|=+*:.';
+let step=0;
+function morph(){let out='';for(let i=0;i<finalText.length;i++){out+=finalText[i]==='\n'||finalText[i]===' '?finalText[i]:i<step?finalText[i]:chars[Math.floor(Math.random()*chars.length)]}logo.textContent=out;step+=2;if(step<=finalText.length)requestAnimationFrame(morph);else logo.textContent=finalText}
+morph();
+
+/* MATRIX RAIN */
+const canvas=document.getElementById('matrixCanvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+resize();addEventListener('resize',resize);
+
+const fontSize=16;
+let columns=Math.floor(canvas.width/fontSize);
+let drops=Array(columns).fill(1);
+let hue=190;
+addEventListener('scroll',()=>{hue=190+Math.min(scrollY/500,1)*80});
+
+function draw(){ctx.fillStyle='rgba(7,8,18,0.08)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=`hsla(${hue},100%,70%,0.35)`;ctx.font=fontSize+'px monospace';for(let i=0;i<drops.length;i++){ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>canvas.height&&Math.random()>0.99)drops[i]=0;drops[i]+=0.35}requestAnimationFrame(draw)}draw();
+</script>
+
+
 
 
 
