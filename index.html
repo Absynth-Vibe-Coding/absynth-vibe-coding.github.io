@@ -8,7 +8,6 @@
 <style>
 :root {
   --bg: #070812;
-  --panel: rgba(255,255,255,0.05);
   --text: #e6e8ee;
   --muted: #9aa0b4;
   --accent: #7cf3ff;
@@ -17,6 +16,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
 
 body {
   font-family: 'Orbitron', sans-serif;
@@ -25,17 +25,13 @@ body {
     radial-gradient(900px 500px at -10% 20%, rgba(124,243,255,0.10), transparent),
     var(--bg);
   color: var(--text);
-  overflow-x: hidden;
 }
 
 /* ================= MATRIX ================= */
 
 #matrixCanvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
   mask-image: linear-gradient(
@@ -55,38 +51,25 @@ header {
 }
 
 .hero-inner {
-  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
   text-align: center;
-  z-index: 2;
 }
 
 /* ================= ASCII LOGO ================= */
 
 pre.ascii-logo {
   font-family: 'Courier New', monospace;
-  font-size: clamp(0.45rem, 2.5vw, 1.3rem);
+  font-size: clamp(0.45rem, 2.6vw, 1.35rem);
   line-height: 1.05;
   color: var(--accent);
-  text-shadow:
-    0 0 8px var(--accent),
-    0 0 24px var(--accent-2);
-  margin-bottom: 24px;
+  text-shadow: 0 0 8px var(--accent), 0 0 24px var(--accent-2);
   white-space: pre;
-  max-width: 100%;
-  overflow: hidden;
+  margin-bottom: 24px;
 }
 
-/* ✅ MOBILE FIX — NO SCROLLBAR, NO CUT */
-@media (max-width: 600px) {
-  pre.ascii-logo {
-    font-size: clamp(0.42rem, 2.1vw, 0.95rem);
-  }
-}
-
-/* ================= CYBERPUNK BUTTONS ================= */
+/* ================= BUTTONS (REAL GLASS) ================= */
 
 .cta {
   display: flex;
@@ -97,69 +80,45 @@ pre.ascii-logo {
 }
 
 .button {
-  position: relative;
   padding: 16px 34px;
-  color: var(--neon);
-  text-decoration: none;
+  border-radius: 999px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  border-radius: 999px;
-  background: rgba(10,15,25,0.8);
-  overflow: hidden;
-  transition: transform 0.25s ease;
-}
+  text-decoration: none;
+  color: var(--neon);
 
-.button::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 20%,
-    rgba(124,243,255,0.5),
-    transparent 80%
-  );
-  transform: translateX(-120%);
-  animation: sweep 3s infinite;
-}
+  background: rgba(255,255,255,0.035);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 
-.button::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  border: 1px solid var(--neon);
+  border: 1px solid rgba(124,243,255,0.25);
+
   box-shadow:
-    0 0 8px var(--neon),
-    inset 0 0 12px rgba(0,255,247,0.5);
+    0 0 26px rgba(124,243,255,0.45),
+    inset 0 0 22px rgba(255,255,255,0.05);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .button:hover {
   transform: scale(1.08);
+  box-shadow:
+    0 0 42px rgba(124,243,255,0.7);
 }
 
 .button.primary {
   color: #02030a;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
-}
-
-.button.primary::after {
-  border: none;
-}
-
-@keyframes sweep {
-  0% { transform: translateX(-120%); }
-  50% { transform: translateX(120%); }
-  100% { transform: translateX(120%); }
+  backdrop-filter: none;
 }
 
 /* ================= SECTIONS ================= */
 
 section {
-  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 24px;
+  position: relative;
   z-index: 1;
 }
 
@@ -176,42 +135,65 @@ h2 {
   margin-bottom: 48px;
 }
 
-/* ================= FEATURED NODES ================= */
+/* ================= FEATURED CARDS (TRUE TRANSPARENT) ================= */
 
 .featured-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-  gap: 36px;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap: 40px;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
 }
 
 .card.featured {
-  background: rgba(15, 18, 30, 0.35);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(124,243,255,0.25);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  background: rgba(255,255,255,0.03); /* THIS is the key */
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+
+  border-radius: 20px;
+  border: 1px solid rgba(124,243,255,0.2);
+  padding: 24px;
+
   box-shadow:
-    0 0 20px rgba(124,243,255,0.25),
-    inset 0 0 20px rgba(255,255,255,0.05);
+    0 0 36px rgba(124,243,255,0.4),
+    inset 0 0 28px rgba(255,255,255,0.04);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card.featured:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 24px var(--accent), 0 0 48px var(--accent-2);
-}
-.card.featured img {
-  width: 100%;
-  border-radius: 12px;
-}
-.card.featured h3 {
-  margin-top: 20px;
-  color: var(--accent);
-}
-.card.featured p {
-  color: var(--muted);
-  margin-top: 8px;
+  transform: translateY(-12px);
+  background: rgba(255,255,255,0.055);
+  box-shadow:
+    0 0 70px rgba(124,243,255,0.65),
+    0 0 110px rgba(177,140,255,0.45);
 }
 
-/* ================= VIDEO SECTION ================= */
+.card.featured img {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+.card.featured h3 {
+  color: var(--accent);
+}
+
+.card.featured p {
+  margin-top: 8px;
+  color: var(--muted);
+  flex-grow: 1;
+}
+
+/* ================= VIDEOS ================= */
 
 .videos {
   display: flex;
@@ -219,21 +201,11 @@ h2 {
   gap: 32px;
 }
 
-.video.main { padding-top: 56.25%; }
-
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
-  gap: 24px;
-}
-
 .video {
   position: relative;
   padding-top: 56.25%;
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
 }
 
 .video iframe {
@@ -244,6 +216,12 @@ h2 {
   border: 0;
 }
 
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  gap: 24px;
+}
+
 /* ================= FOOTER ================= */
 
 footer {
@@ -251,7 +229,6 @@ footer {
   text-align: center;
   color: var(--muted);
   border-top: 1px solid rgba(255,255,255,0.08);
-  position: relative;
   z-index: 1;
 }
 
@@ -288,43 +265,43 @@ footer {
   <p class="lead">Fully AI Vibe coded nodes you can use for free in ComfyUI!</p>
 
   <div class="featured-cards">
-    <div class="card featured">
-      <a href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">
+    <a class="card-link" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">
+      <div class="card featured">
         <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/absynth-vst-nodes.png">
-      </a>
-      <h3>Absynth VST</h3>
-      <p>Turn your VST plugins into ComfyUI nodes and let AI write your bangers + PRESETS.</p>
-    </div>
+        <h3>Absynth VST</h3>
+        <p>Turn your VST plugins into ComfyUI nodes and let AI write your bangers + PRESETS.</p>
+      </div>
+    </a>
 
-    <div class="card featured">
-      <a href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">
+    <a class="card-link" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">
+      <div class="card featured">
         <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/absynth-filmlook1.png">
-      </a>
-      <h3>Film Look Creator</h3>
-      <p>Cinematic grading, LUTs, bloom, and analog film aesthetics.</p>
-    </div>
+        <h3>Film Look Creator</h3>
+        <p>Cinematic grading, LUTs, bloom, and analog film aesthetics.</p>
+      </div>
+    </a>
 
-    <div class="card featured">
-      <a href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">
+    <a class="card-link" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">
+      <div class="card featured">
         <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/absynth-lipsync.png">
-      </a>
-      <h3>LipSync Correction</h3>
-      <p>Lipsync Correction for your AI Videos</p>
-    </div>
+        <h3>LipSync Correction</h3>
+        <p>Lipsync Correction for your AI Videos.</p>
+      </div>
+    </a>
   </div>
 </section>
 
 <section>
   <h2>Electric Dreams</h2>
-  Cinematic AI, cyberpunk aesthetics, music-driven visuals - fully AI generated.
-  <p><strong>Subscribe now to the Electric Dreams YouTube channel, so you dont miss any updates!</strong></p><br>
+  <p>
+    Cinematic AI, cyberpunk aesthetics, music-driven visuals - fully AI generated.<br>
+    <strong>Subscribe now to the Electric Dreams YouTube channel, so you dont miss any updates!</strong>
+  </p>
 
   <div class="videos">
-    <div class="video main">
-      <iframe
-        src="https://www.youtube.com/embed/X1SB5PB1ZF8?autoplay=1&mute=0&playsinline=1"
-        allow="autoplay; encrypted-media"
-        allowfullscreen></iframe>
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/X1SB5PB1ZF8?autoplay=1&mute=0&playsinline=1"
+        allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
     <div class="video-grid">
@@ -338,57 +315,44 @@ footer {
 <footer>© 2026 Absynth · Electric Dreams</footer>
 
 <script>
-/* ASCII LEFT → RIGHT MORPH */
-const logo = document.getElementById('asciiLogo');
-const finalText = logo.textContent;
-const chars = '█▓▒░<>/\\|=+*:.';
-let step = 0;
-
-function morph() {
-  let out = '';
-  for (let i = 0; i < finalText.length; i++) {
-    if (finalText[i] === '\n' || finalText[i] === ' ') out += finalText[i];
-    else if (i < step) out += finalText[i];
-    else out += chars[Math.floor(Math.random() * chars.length)];
+/* ASCII MORPH */
+const logo=document.getElementById('asciiLogo');
+const finalText=logo.textContent;
+const chars='█▓▒░<>/\\|=+*:.';
+let step=0;
+(function morph(){
+  let out='';
+  for(let i=0;i<finalText.length;i++){
+    out+=finalText[i]==='\n'||finalText[i]===' ' ? finalText[i] : i<step ? finalText[i] : chars[Math.random()*chars.length|0];
   }
-  logo.textContent = out;
-  step += 2;
-  if (step <= finalText.length) requestAnimationFrame(morph);
-  else logo.textContent = finalText;
-}
-morph();
+  logo.textContent=out;
+  step+=2;
+  if(step<=finalText.length) requestAnimationFrame(morph);
+  else logo.textContent=finalText;
+})();
 
 /* MATRIX RAIN */
-const canvas = document.getElementById('matrixCanvas');
-const ctx = canvas.getContext('2d');
+const canvas=document.getElementById('matrixCanvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+resize();addEventListener('resize',resize);
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
+const fontSize=16;
+let columns=Math.floor(canvas.width/fontSize);
+let drops=Array(columns).fill(1);
+let hue=190;
 
-const fontSize = 16;
-let columns = Math.floor(canvas.width / fontSize);
-let drops = Array(columns).fill(1);
-let hue = 190;
+addEventListener('scroll',()=>{hue=190+Math.min(scrollY/500,1)*80;});
 
-window.addEventListener('scroll', () => {
-  hue = 190 + Math.min(window.scrollY / 500, 1) * 80;
-});
-
-function draw() {
-  ctx.fillStyle = 'rgba(7,8,18,0.08)';
+function draw(){
+  ctx.fillStyle='rgba(7,8,18,0.035)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = `hsla(${hue},100%,70%,0.35)`;
-  ctx.font = fontSize + 'px monospace';
-
-  for (let i = 0; i < drops.length; i++) {
-    const char = String.fromCharCode(0x30A0 + Math.random() * 96);
-    ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) drops[i] = 0;
-    drops[i] += 0.35;
+  ctx.fillStyle=`hsla(${hue},100%,70%,0.4)`;
+  ctx.font=fontSize+'px monospace';
+  for(let i=0;i<drops.length;i++){
+    ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>canvas.height&&Math.random()>0.99)drops[i]=0;
+    drops[i]+=0.35;
   }
   requestAnimationFrame(draw);
 }
