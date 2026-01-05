@@ -121,6 +121,36 @@ section p.lead { max-width:720px; color:var(--muted); margin-bottom:48px; font-s
 .card h3 { margin-bottom:12px; }
 .card p { color:var(--muted); }
 
+/* Featured nodes section */
+.featured-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  gap: 36px;
+  margin-top: 40px;
+}
+.card.featured {
+  background: rgba(20,20,30, 0.85);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 24px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card.featured:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+}
+.card.featured h3 {
+  margin-top: 20px;
+  color: var(--accent);
+  font-size: 1.5rem;
+}
+.card.featured p {
+  color: var(--muted);
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
 /* Videos */
 .videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(500px,1fr)); gap:32px; }
 .video { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,0.2); background:linear-gradient(135deg,#0c0d1a 0%,#1a0022 100%); box-shadow:0 0 16px var(--accent),0 0 32px var(--accent-2); transition:0.3s;}
@@ -154,30 +184,30 @@ footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1p
   </div>
 </header>
 
-<section>
-  <h2>ComfyUI Nodes</h2>
-  <p class="lead">Explore Absynth's high-quality ComfyUI nodes designed for AI-powered music production, VST integration, and creative workflow automation.</p>
-  <div class="cards">
-    <div class="card">
-      <h3>Absynth VST 1.3.4.1</h3>
-      <p>Super fast Comfy startup with Absynth VST nodes, fully optimized for smooth AI workflows.</p>
+<section id="nodes-featured">
+  <h2>Featured ComfyUI Nodes</h2>
+  <p class="lead">Explore Absynth's flagship ComfyUI nodes that take music and visual workflows to the next level.</p>
+
+  <div class="featured-cards">
+
+    <div class="card featured">
+      <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/assets/absynth-vst.png" alt="Absynth VST in ComfyUI" style="width:100%; border-radius:12px;">
+      <h3>VST Plugins in ComfyUI – Absynth VST</h3>
+      <p>Integrate VST instruments and effects directly into ComfyUI graphs for generative music workflows and AI-assisted sound design.</p>
     </div>
-    <div class="card">
-      <h3>Absynth VST 1.3.4</h3>
-      <p>Correct note recognition, perfect chord riffs, and harmonic arpeggios—fully quantized and ready to use.</p>
+
+    <div class="card featured">
+      <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/assets/absynth-film-look-creator.png" alt="Absynth Film Look Creator in ComfyUI" style="width:100%; border-radius:12px;">
+      <h3>Absynth Film Look Creator</h3>
+      <p>Create cinematic grading, analog film aesthetics, and atmospheric visuals directly in ComfyUI. LUTs, bloom, and grain for professional renders.</p>
     </div>
-    <div class="card">
-      <h3>Absynth VST 1.3.3</h3>
-      <p>Includes MIDI Analyzer and LLM Midi Looper to generate leads, basslines, pads, arps, and chord riffs from your chords automatically.</p>
+
+    <div class="card featured">
+      <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/assets/absynth-lipsync-correction.png" alt="Absynth LipSync Correction in ComfyUI" style="width:100%; border-radius:12px;">
+      <h3>Absynth LipSync Correction</h3>
+      <p>AI-driven lip sync correction for animated videos. Perfect mouth alignment for spoken audio and natural animation outputs.</p>
     </div>
-    <div class="card">
-      <h3>Absynth VST 1.3.1</h3>
-      <p>Improved Preset Maker for Serum 2: create sequences, arpeggiator presets, and add any effects prompted in your workflow.</p>
-    </div>
-    <div class="card">
-      <h3>VST Enhancements</h3>
-      <p>Glitch, drift fix, loop sync, and workflow-first design for professional production-ready pipelines.</p>
-    </div>
+
   </div>
 </section>
 
