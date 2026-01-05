@@ -1,198 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Absynth · ComfyUI Nodes & Electric Dreams</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Award-level ComfyUI nodes by Absynth. Advanced AI workflows, experimental tooling, and cinematic generative systems. Featuring the Electric Dreams YouTube channel." />
-
 <style>
 :root {
+  --accent: #7cf3ff;
+  --accent-2: #b18cff;
   --bg: #0a0b14;
   --panel: rgba(255,255,255,0.05);
   --text: #e6e8ee;
   --muted: #9aa0b4;
-  --accent: #7cf3ff;
-  --accent-2: #b18cff;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   font-family: 'Orbitron', sans-serif;
-  background:
-    radial-gradient(1200px 600px at 70% -10%, rgba(177,140,255,0.12), transparent),
-    radial-gradient(900px 500px at -10% 20%, rgba(124,243,255,0.10), transparent),
-    var(--bg);
-  color: var(--text);
-  line-height: 1.6;
   overflow-x: hidden;
+  color: var(--text);
+  background: var(--bg);
 }
 
-/* Links */
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+/* Fullscreen canvas background */
+#bgCanvas {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:-1;
+}
 
 /* ASCII Logo Header */
 header {
-  padding: 100px 24px 80px;
   text-align: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 80px 24px 60px;
 }
 
-header pre.ascii-logo {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1.3rem;
-  line-height: 1.1;
+pre.ascii-logo {
+  font-family: monospace;
+  font-size: 1.2rem;
   color: var(--accent);
-  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2), 0 0 24px var(--accent);
-  margin-bottom: 24px;
   display: inline-block;
-  animation: flicker 2s infinite alternate;
+  position: relative;
+  line-height: 1.1;
 }
 
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-  }
-  20%, 22%, 24%, 55% {
-    opacity: 0.4;
-  }
+.glitch {
+  position: relative;
+  color: var(--accent);
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left:0; top:0;
+  width: 100%;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+}
+.glitch::before {
+  animation: glitchTop 2s infinite linear alternate-reverse;
+  color: var(--accent-2);
+  z-index: 1;
+}
+.glitch::after {
+  animation: glitchBottom 1.8s infinite linear alternate-reverse;
+  color: #ff00ff;
+  z-index: 2;
 }
 
-header p {
-  max-width: 720px;
-  margin: 0 auto 40px;
-  font-size: 1.15rem;
-  color: var(--muted);
-  text-shadow: 0 0 2px #000;
+@keyframes glitchTop {
+  0% { clip: rect(0,9999px,5px,0); transform: translate(-2px,-2px);}
+  10% { clip: rect(5px,9999px,10px,0); transform: translate(2px,2px);}
+  20% { clip: rect(10px,9999px,15px,0); transform: translate(-2px,1px);}
+  30% { clip: rect(15px,9999px,20px,0); transform: translate(1px,-2px);}
+  40% { clip: rect(20px,9999px,25px,0); transform: translate(0,2px);}
+  50% { clip: rect(25px,9999px,30px,0); transform: translate(-1px,-1px);}
+  60% { clip: rect(30px,9999px,35px,0); transform: translate(2px,0);}
+  70% { clip: rect(35px,9999px,40px,0); transform: translate(-2px,1px);}
+  80% { clip: rect(40px,9999px,45px,0); transform: translate(1px,-2px);}
+  90% { clip: rect(45px,9999px,50px,0); transform: translate(-1px,2px);}
+  100% { clip: rect(50px,9999px,55px,0); transform: translate(0,0);}
+}
+@keyframes glitchBottom {
+  0% { clip: rect(55px,9999px,60px,0); transform: translate(1px,2px);}
+  10% { clip: rect(60px,9999px,65px,0); transform: translate(-1px,-2px);}
+  20% { clip: rect(65px,9999px,70px,0); transform: translate(2px,1px);}
+  30% { clip: rect(70px,9999px,75px,0); transform: translate(-2px,-1px);}
+  40% { clip: rect(75px,9999px,80px,0); transform: translate(1px,0);}
+  50% { clip: rect(80px,9999px,85px,0); transform: translate(-1px,1px);}
+  60% { clip: rect(85px,9999px,90px,0); transform: translate(2px,-1px);}
+  70% { clip: rect(90px,9999px,95px,0); transform: translate(-2px,2px);}
+  80% { clip: rect(95px,9999px,100px,0); transform: translate(1px,-1px);}
+  90% { clip: rect(100px,9999px,105px,0); transform: translate(-1px,0);}
+  100% { clip: rect(105px,9999px,110px,0); transform: translate(0,0);}
 }
 
+/* CTA Buttons */
 .cta {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:24px;
 }
-
 .button {
   padding: 14px 26px;
   border-radius: 999px;
   font-weight: 600;
   border: 1px solid rgba(255,255,255,0.15);
   background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-  backdrop-filter: blur(6px);
   color: var(--text);
-  transition: 0.3s;
+  transition:0.3s;
 }
 .button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+  transform:scale(1.05);
+  box-shadow: 0 0 16px var(--accent),0 0 32px var(--accent-2);
 }
 .button.primary {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color: #02030a;
-  border: none;
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:#02030a;
+  border:none;
 }
 
 /* Sections */
-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-}
-
-section h2 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  margin-bottom: 24px;
-  letter-spacing: -0.01em;
-  color: var(--accent);
-  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2);
-}
-
-section p.lead {
-  max-width: 720px;
-  color: var(--muted);
-  margin-bottom: 48px;
-  font-size: 1.1rem;
-}
+section { max-width:1200px; margin:0 auto; padding:80px 24px; }
+section h2 { font-size:clamp(2rem,4vw,2.8rem); color:var(--accent); text-shadow:0 0 6px var(--accent),0 0 12px var(--accent-2); margin-bottom:24px;}
+section p.lead { max-width:720px; color:var(--muted); margin-bottom:48px; font-size:1.1rem;}
 
 /* Cards */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-.card {
-  background: var(--panel);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 28px;
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
-}
-.card h3 { margin-bottom: 12px; font-size: 1.25rem; }
-.card p { color: var(--muted); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px;}
+.card { background:var(--panel); border-radius:18px; padding:28px; backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.08); transition:0.3s;}
+.card:hover { transform:translateY(-6px); box-shadow:0 0 16px var(--accent),0 0 32px var(--accent-2);}
+.card h3 { margin-bottom:12px; }
+.card p { color:var(--muted); }
 
-/* Video Section */
-.videos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 32px;
-}
-
-.video {
-  position: relative;
-  padding-top: 56.25%;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: linear-gradient(135deg, #0c0d1a 0%, #1a0022 100%);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.video:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 32px var(--accent), 0 0 64px var(--accent-2);
-}
-.video iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  border-radius: 18px;
-}
+/* Videos */
+.videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(500px,1fr)); gap:32px; }
+.video { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,0.2); background:linear-gradient(135deg,#0c0d1a 0%,#1a0022 100%); box-shadow:0 0 16px var(--accent),0 0 32px var(--accent-2); transition:0.3s;}
+.video:hover { transform:scale(1.05); box-shadow:0 0 32px var(--accent),0 0 64px var(--accent-2);}
+.video iframe { position:absolute; inset:0; width:100%; height:100%; border-radius:18px; border:0; }
 
 /* Footer */
-footer {
-  padding: 60px 24px;
-  text-align: center;
-  color: var(--muted);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  text-shadow: 0 0 2px #000;
-}
+footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,0.08); text-shadow:0 0 2px #000; }
 
-/* Import Orbitron font */
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 </style>
 </head>
 <body>
 
+<canvas id="bgCanvas"></canvas>
+
 <header>
-  <pre class="ascii-logo">
+  <pre class="ascii-logo glitch" data-text="
  █████╗ ██████╗ ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗
 ██╔══██╗██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║
 ███████║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║
 ██╔══██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║   ██║   ██╔══██║
 ██║  ██║██████╔╝███████║   ██║   ██║ ╚████║   ██║   ██║  ██║
 ╚═╝  ╚═╝╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝
-  </pre>
+"></pre>
   <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems. Built for artists, researchers, and creators who push beyond presets.</p>
   <div class="cta">
     <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
@@ -222,6 +187,64 @@ footer {
 </section>
 
 <footer>© 2026 Absynth · Built with GitHub Pages · Electric Dreams</footer>
+
+<script>
+// Cyberpunk animated background
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+window.addEventListener('resize',()=>{ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; init(); });
+
+let particles = [];
+function init() {
+  particles=[];
+  for(let i=0;i<150;i++){
+    particles.push({
+      x:Math.random()*w,
+      y:Math.random()*h,
+      vx:(Math.random()-0.5)*1.5,
+      vy:(Math.random()-0.5)*1.5,
+      size:Math.random()*2+1,
+      color: Math.random()>0.5? '#7cf3ff':'#b18cff'
+    });
+  }
+}
+init();
+
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  // Draw lines
+  for(let i=0;i<particles.length;i++){
+    let p=particles[i];
+    p.x+=p.vx;
+    p.y+=p.vy;
+    if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+    if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fillStyle=p.color;
+    ctx.fill();
+  }
+  // Connect nearby
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      let dx=particles[i].x-particles[j].x;
+      let dy=particles[i].y-particles[j].y;
+      let dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        ctx.beginPath();
+        ctx.strokeStyle='rgba(124,243,255,'+ (1-dist/120) +')';
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 
 </body>
 </html>
