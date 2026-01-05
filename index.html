@@ -16,7 +16,7 @@
   --accent-2: #b18cff;
 }
 
-* { box-sizing: border-box; margin:0; padding:0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Orbitron', sans-serif;
@@ -27,6 +27,18 @@ body {
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Canvas for Matrix rain */
+#matrixCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px; /* only behind header */
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Links */
@@ -213,10 +225,11 @@ footer {
 
 /* Import Orbitron font */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
 </style>
 </head>
 <body>
+
+<canvas id="matrixCanvas"></canvas>
 
 <header>
   <pre class="ascii-logo">
@@ -239,25 +252,21 @@ footer {
   <p class="lead">Explore Absynth's flagship ComfyUI nodes that take music and visual workflows to the next level.</p>
 
   <div class="featured-cards">
-
     <div class="card featured">
       <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/vst.png" alt="Absynth VST">
       <h3>VST Plugins in ComfyUI – Absynth VST</h3>
       <p>Integrate VST instruments and effects directly into ComfyUI graphs for generative music workflows and AI-assisted sound design.</p>
     </div>
-
     <div class="card featured">
       <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/film-look.png" alt="Film Look Creator">
       <h3>Absynth Film Look Creator</h3>
       <p>Create cinematic grading, analog film aesthetics, and atmospheric visuals directly in ComfyUI. LUTs, bloom, and grain for professional renders.</p>
     </div>
-
     <div class="card featured">
       <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/lipsync.png" alt="LipSync Correction">
       <h3>Absynth LipSync Correction</h3>
       <p>AI-driven lip sync correction for animated videos. Perfect mouth alignment for spoken audio and natural animation outputs.</p>
     </div>
-
   </div>
 </section>
 
@@ -273,6 +282,40 @@ footer {
 </section>
 
 <footer>© 2026 Absynth · Built with GitHub Pages · Electric Dreams</footer>
+
+<script>
+// MATRIX RAIN
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = 300; // only header height
+const columns = Math.floor(w / 14);
+const drops = Array(columns).fill(1);
+
+window.addEventListener('resize', ()=>{
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = 300;
+});
+
+function draw() {
+  ctx.fillStyle = 'rgba(10,11,20,0.1)'; // transparent background
+  ctx.fillRect(0,0,w,h);
+
+  ctx.fillStyle = 'rgba(124,243,255,0.3)'; // Absynth color with transparency
+  ctx.font = '14px monospace';
+
+  for(let i=0;i<drops.length;i++){
+    const text = String.fromCharCode(0x30A0 + Math.floor(Math.random()*96));
+    ctx.fillText(text, i*14, drops[i]*14);
+
+    if(drops[i]*14 > h && Math.random() > 0.975) drops[i]=0;
+    drops[i]++;
+  }
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
 
 </body>
 </html>
