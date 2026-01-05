@@ -1,50 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Absynth · ComfyUI Nodes & Electric Dreams</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Award-level ComfyUI nodes by Absynth. Advanced AI workflows, experimental tooling, and cinematic generative systems. Featuring the Electric Dreams YouTube channel." />
+
 <style>
 :root {
-  --accent: #7cf3ff;
-  --accent-2: #b18cff;
   --bg: #0a0b14;
   --panel: rgba(255,255,255,0.05);
   --text: #e6e8ee;
   --muted: #9aa0b4;
+  --accent: #7cf3ff;
+  --accent-2: #b18cff;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Orbitron', sans-serif;
-  overflow-x: hidden;
+  background:
+    radial-gradient(1200px 600px at 70% -10%, rgba(177,140,255,0.12), transparent),
+    radial-gradient(900px 500px at -10% 20%, rgba(124,243,255,0.10), transparent),
+    var(--bg);
   color: var(--text);
-  background: var(--bg);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* Fullscreen canvas background */
-#bgCanvas {
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  z-index:-1;
-}
+/* Links */
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-/* Header and logo */
+/* ASCII Logo Header */
 header {
+  padding: 100px 24px 80px;
   text-align: center;
-  padding: 80px 24px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-header img.logo {
-  max-width: 90%;
-  height: auto;
-  display: block;
-  margin: 0 auto 20px;
+header pre.ascii-logo {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2), 0 0 24px var(--accent);
+  margin-bottom: 24px;
+  display: inline-block;
+  animation: flicker 2s infinite alternate;
 }
 
-/* Header text and buttons */
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0.4;
+  }
+}
+
 header p {
   max-width: 720px;
   margin: 0 auto 40px;
@@ -54,87 +70,129 @@ header p {
 }
 
 .cta {
-  display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
+
 .button {
   padding: 14px 26px;
   border-radius: 999px;
   font-weight: 600;
   border: 1px solid rgba(255,255,255,0.15);
   background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  backdrop-filter: blur(6px);
   color: var(--text);
-  transition:0.3s;
+  transition: 0.3s;
 }
 .button:hover {
-  transform:scale(1.05);
-  box-shadow: 0 0 16px var(--accent),0 0 32px var(--accent-2);
+  transform: scale(1.05);
+  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
 }
 .button.primary {
-  background: linear-gradient(90deg,var(--accent),var(--accent-2));
-  color:#02030a;
-  border:none;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #02030a;
+  border: none;
 }
 
 /* Sections */
-section { max-width:1200px; margin:0 auto; padding:80px 24px; }
-section h2 { font-size:clamp(2rem,4vw,2.8rem); color:var(--accent); text-shadow:0 0 6px var(--accent),0 0 12px var(--accent-2); margin-bottom:24px;}
-section p.lead { max-width:720px; color:var(--muted); margin-bottom:48px; font-size:1.1rem;}
-
-/* Featured node cards */
-.featured-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-  gap: 36px;
-  margin-top: 40px;
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
 }
-.card.featured {
-  background: rgba(20,20,30, 0.85);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 24px;
+
+section h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2);
+}
+
+section p.lead {
+  max-width: 720px;
+  color: var(--muted);
+  margin-bottom: 48px;
+  font-size: 1.1rem;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  backdrop-filter: blur(10px);
+  padding: 28px;
+  backdrop-filter: blur(8px);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.card.featured:hover {
-  transform: translateY(-8px);
+.card:hover {
+  transform: translateY(-6px);
   box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
 }
-.card.featured h3 {
-  margin-top: 20px;
-  color: var(--accent);
-  font-size: 1.5rem;
-}
-.card.featured p {
-  color: var(--muted);
-  margin-top: 8px;
-  font-size: 1rem;
-}
-.card.featured img {
-  width: 100%;
-  border-radius: 12px;
+.card h3 { margin-bottom: 12px; font-size: 1.25rem; }
+.card p { color: var(--muted); }
+
+/* Video Section */
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 32px;
 }
 
-/* Videos */
-.videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:32px; }
-.video { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,0.2); background:linear-gradient(135deg,#0c0d1a 0%,#1a0022 100%); box-shadow:0 0 16px var(--accent),0 0 32px var(--accent-2); transition:0.3s;}
-.video:hover { transform:scale(1.05); box-shadow:0 0 32px var(--accent),0 0 64px var(--accent-2);}
-.video iframe { position:absolute; inset:0; width:100%; height:100%; border-radius:18px; border:0; }
+.video {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, #0c0d1a 0%, #1a0022 100%);
+  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.video:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 32px var(--accent), 0 0 64px var(--accent-2);
+}
+.video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 18px;
+}
 
 /* Footer */
-footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,0.08); text-shadow:0 0 2px #000; }
+footer {
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-shadow: 0 0 2px #000;
+}
 
-/* Fonts */
+/* Import Orbitron font */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 </style>
 </head>
 <body>
 
-<canvas id="bgCanvas"></canvas>
-
 <header>
-  <!-- Logo image -->
-  <img class="logo" src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="Absynth ASCII Logo">
-
+  <pre class="ascii-logo">
+ █████╗ ██████╗ ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗
+██╔══██╗██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║
+███████║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║
+██╔══██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║   ██║   ██╔══██║
+██║  ██║██████╔╝███████║   ██║   ██║ ╚████║   ██║   ██║  ██║
+╚═╝  ╚═╝╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝
+  </pre>
   <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems. Built for artists, researchers, and creators who push beyond presets.</p>
   <div class="cta">
     <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
@@ -142,30 +200,13 @@ footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1p
   </div>
 </header>
 
-<section id="nodes-featured">
-  <h2>Featured ComfyUI Nodes</h2>
-  <p class="lead">Explore Absynth's flagship ComfyUI nodes that take music and visual workflows to the next level.</p>
-
-  <div class="featured-cards">
-
-    <div class="card featured">
-      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="Absynth VST">
-      <h3>VST Plugins in ComfyUI – Absynth VST</h3>
-      <p>Integrate VST instruments and effects directly into ComfyUI graphs for generative music workflows and AI-assisted sound design.</p>
-    </div>
-
-    <div class="card featured">
-      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="Film Look Creator">
-      <h3>Absynth Film Look Creator</h3>
-      <p>Create cinematic grading, analog film aesthetics, and atmospheric visuals directly in ComfyUI. LUTs, bloom, and grain for professional renders.</p>
-    </div>
-
-    <div class="card featured">
-      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="LipSync Correction">
-      <h3>Absynth LipSync Correction</h3>
-      <p>AI-driven lip sync correction for animated videos. Perfect mouth alignment for spoken audio and natural animation outputs.</p>
-    </div>
-
+<section>
+  <h2>ComfyUI Nodes</h2>
+  <p class="lead">A growing collection of high-quality ComfyUI nodes designed for precision, flexibility, and creative control in professional AI pipelines.</p>
+  <div class="cards">
+    <div class="card"><h3>Workflow-First Design</h3><p>Nodes engineered for real production graphs, not demos.</p></div>
+    <div class="card"><h3>Experimental & Practical</h3><p>Bridging cutting-edge ideas with usable tooling.</p></div>
+    <div class="card"><h3>Open & Evolving</h3><p>Fully open-source and continuously refined.</p></div>
   </div>
 </section>
 
@@ -181,61 +222,6 @@ footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1p
 </section>
 
 <footer>© 2026 Absynth · Built with GitHub Pages · Electric Dreams</footer>
-
-<script>
-// Cyberpunk animated background
-const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-window.addEventListener('resize',()=>{ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; init(); });
-
-let particles = [];
-function init() {
-  particles=[];
-  for(let i=0;i<100;i++){
-    particles.push({
-      x:Math.random()*w,
-      y:Math.random()*h,
-      vx:(Math.random()-0.5)*1.5,
-      vy:(Math.random()-0.5)*1.5,
-      size:Math.random()*2+1,
-      color: Math.random()>0.5? '#7cf3ff':'#b18cff'
-    });
-  }
-}
-init();
-
-function animate(){
-  ctx.clearRect(0,0,w,h);
-  for(let i=0;i<particles.length;i++){
-    let p=particles[i];
-    p.x+=p.vx; p.y+=p.vy;
-    if(p.x<0)p.x=w;if(p.x>w)p.x=0;
-    if(p.y<0)p.y=h;if(p.y>h)p.y=0;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-    ctx.fillStyle=p.color;
-    ctx.fill();
-  }
-  for(let i=0;i<particles.length;i++){
-    for(let j=i+1;j<particles.length;j++){
-      let dx=particles[i].x-particles[j].x;
-      let dy=particles[i].y-particles[j].y;
-      let dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<120){
-        ctx.beginPath();
-        ctx.strokeStyle='rgba(124,243,255,'+ (1-dist/120) +')';
-        ctx.moveTo(particles[i].x,particles[i].y);
-        ctx.lineTo(particles[j].x,particles[j].y);
-        ctx.stroke();
-      }
-    }
-  }
-  requestAnimationFrame(animate);
-}
-animate();
-</script>
 
 </body>
 </html>
