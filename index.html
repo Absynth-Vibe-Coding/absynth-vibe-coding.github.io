@@ -31,55 +31,20 @@ body {
   z-index:-1;
 }
 
-/* ASCII Logo Header */
+/* Header and logo */
 header {
   text-align: center;
   padding: 80px 24px 60px;
 }
 
-pre.ascii-logo {
-  font-family: monospace;
-  font-size: 1rem;
-  white-space: pre-wrap;
-  line-height: 1.1;
-  display: inline-block;
-  color: var(--accent);
-  position: relative;
+header img.logo {
+  max-width: 90%;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
 }
 
-.glitch {
-  position: relative;
-  color: var(--accent);
-}
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  left:0; top:0;
-  width: 100%;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-}
-.glitch::before {
-  animation: glitchTop 2s infinite linear alternate-reverse;
-  color: var(--accent-2);
-  z-index: 1;
-}
-.glitch::after {
-  animation: glitchBottom 1.8s infinite linear alternate-reverse;
-  color: #ff00ff;
-  z-index: 2;
-}
-
-@keyframes glitchTop {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-  20%, 22%, 24%, 55% { opacity: 0.4; }
-}
-@keyframes glitchBottom {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-  20%, 22%, 24%, 55% { opacity: 0.4; }
-}
-
+/* Header text and buttons */
 header p {
   max-width: 720px;
   margin: 0 auto 40px;
@@ -115,17 +80,10 @@ section { max-width:1200px; margin:0 auto; padding:80px 24px; }
 section h2 { font-size:clamp(2rem,4vw,2.8rem); color:var(--accent); text-shadow:0 0 6px var(--accent),0 0 12px var(--accent-2); margin-bottom:24px;}
 section p.lead { max-width:720px; color:var(--muted); margin-bottom:48px; font-size:1.1rem;}
 
-/* Cards */
-.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px;}
-.card { background:var(--panel); border-radius:18px; padding:28px; backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.08); transition:0.3s;}
-.card:hover { transform:translateY(-6px); box-shadow:0 0 16px var(--accent),0 0 32px var(--accent-2);}
-.card h3 { margin-bottom:12px; }
-.card p { color:var(--muted); }
-
-/* Featured nodes section */
+/* Featured node cards */
 .featured-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
   gap: 36px;
   margin-top: 40px;
 }
@@ -151,9 +109,13 @@ section p.lead { max-width:720px; color:var(--muted); margin-bottom:48px; font-s
   margin-top: 8px;
   font-size: 1rem;
 }
+.card.featured img {
+  width: 100%;
+  border-radius: 12px;
+}
 
 /* Videos */
-.videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(500px,1fr)); gap:32px; }
+.videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:32px; }
 .video { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,0.2); background:linear-gradient(135deg,#0c0d1a 0%,#1a0022 100%); box-shadow:0 0 16px var(--accent),0 0 32px var(--accent-2); transition:0.3s;}
 .video:hover { transform:scale(1.05); box-shadow:0 0 32px var(--accent),0 0 64px var(--accent-2);}
 .video iframe { position:absolute; inset:0; width:100%; height:100%; border-radius:18px; border:0; }
@@ -170,14 +132,9 @@ footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1p
 <canvas id="bgCanvas"></canvas>
 
 <header>
-  <pre class="ascii-logo glitch" data-text="
- █████╗ ██████╗ ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗
-██╔══██╗██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║
-███████║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║
-██╔══██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║   ██║   ██╔══██║
-██║  ██║██████╔╝███████║   ██║   ██║ ╚████║   ██║   ██║  ██║
-╚═╝  ╚═╝╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝
-"></pre>
+  <!-- Logo image -->
+  <img class="logo" src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="Absynth ASCII Logo">
+
   <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems. Built for artists, researchers, and creators who push beyond presets.</p>
   <div class="cta">
     <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
@@ -192,22 +149,19 @@ footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1p
   <div class="featured-cards">
 
     <div class="card featured">
-      <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/assets/absynth-vst.png" 
-           alt="Absynth VST in ComfyUI" style="width:100%; border-radius:12px;">
+      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="Absynth VST">
       <h3>VST Plugins in ComfyUI – Absynth VST</h3>
       <p>Integrate VST instruments and effects directly into ComfyUI graphs for generative music workflows and AI-assisted sound design.</p>
     </div>
 
     <div class="card featured">
-      <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/assets/absynth-film-look-creator.png" 
-           alt="Absynth Film Look Creator in ComfyUI" style="width:100%; border-radius:12px;">
+      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="Film Look Creator">
       <h3>Absynth Film Look Creator</h3>
       <p>Create cinematic grading, analog film aesthetics, and atmospheric visuals directly in ComfyUI. LUTs, bloom, and grain for professional renders.</p>
     </div>
 
     <div class="card featured">
-      <img src="https://raw.githubusercontent.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/main/assets/absynth-lipsync-correction.png" 
-           alt="Absynth LipSync Correction in ComfyUI" style="width:100%; border-radius:12px;">
+      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=..." alt="LipSync Correction">
       <h3>Absynth LipSync Correction</h3>
       <p>AI-driven lip sync correction for animated videos. Perfect mouth alignment for spoken audio and natural animation outputs.</p>
     </div>
@@ -239,7 +193,7 @@ window.addEventListener('resize',()=>{ w=canvas.width=window.innerWidth; h=canva
 let particles = [];
 function init() {
   particles=[];
-  for(let i=0;i<150;i++){
+  for(let i=0;i<100;i++){
     particles.push({
       x:Math.random()*w,
       y:Math.random()*h,
@@ -256,8 +210,7 @@ function animate(){
   ctx.clearRect(0,0,w,h);
   for(let i=0;i<particles.length;i++){
     let p=particles[i];
-    p.x+=p.vx;
-    p.y+=p.vy;
+    p.x+=p.vx; p.y+=p.vy;
     if(p.x<0)p.x=w;if(p.x>w)p.x=0;
     if(p.y<0)p.y=h;if(p.y>h)p.y=0;
     ctx.beginPath();
