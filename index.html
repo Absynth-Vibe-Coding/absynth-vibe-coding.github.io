@@ -71,33 +71,22 @@ pre.ascii-logo {
 }
 
 @keyframes glitchTop {
-  0% { clip: rect(0,9999px,5px,0); transform: translate(-2px,-2px);}
-  10% { clip: rect(5px,9999px,10px,0); transform: translate(2px,2px);}
-  20% { clip: rect(10px,9999px,15px,0); transform: translate(-2px,1px);}
-  30% { clip: rect(15px,9999px,20px,0); transform: translate(1px,-2px);}
-  40% { clip: rect(20px,9999px,25px,0); transform: translate(0,2px);}
-  50% { clip: rect(25px,9999px,30px,0); transform: translate(-1px,-1px);}
-  60% { clip: rect(30px,9999px,35px,0); transform: translate(2px,0);}
-  70% { clip: rect(35px,9999px,40px,0); transform: translate(-2px,1px);}
-  80% { clip: rect(40px,9999px,45px,0); transform: translate(1px,-2px);}
-  90% { clip: rect(45px,9999px,50px,0); transform: translate(-1px,2px);}
-  100% { clip: rect(50px,9999px,55px,0); transform: translate(0,0);}
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0.4; }
 }
 @keyframes glitchBottom {
-  0% { clip: rect(55px,9999px,60px,0); transform: translate(1px,2px);}
-  10% { clip: rect(60px,9999px,65px,0); transform: translate(-1px,-2px);}
-  20% { clip: rect(65px,9999px,70px,0); transform: translate(2px,1px);}
-  30% { clip: rect(70px,9999px,75px,0); transform: translate(-2px,-1px);}
-  40% { clip: rect(75px,9999px,80px,0); transform: translate(1px,0);}
-  50% { clip: rect(80px,9999px,85px,0); transform: translate(-1px,1px);}
-  60% { clip: rect(85px,9999px,90px,0); transform: translate(2px,-1px);}
-  70% { clip: rect(90px,9999px,95px,0); transform: translate(-2px,2px);}
-  80% { clip: rect(95px,9999px,100px,0); transform: translate(1px,-1px);}
-  90% { clip: rect(100px,9999px,105px,0); transform: translate(-1px,0);}
-  100% { clip: rect(105px,9999px,110px,0); transform: translate(0,0);}
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0.4; }
 }
 
-/* CTA Buttons */
+header p {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  font-size: 1.15rem;
+  color: var(--muted);
+  text-shadow: 0 0 2px #000;
+}
+
 .cta {
   display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:24px;
 }
@@ -167,11 +156,28 @@ footer { padding:60px 24px; text-align:center; color:var(--muted); border-top:1p
 
 <section>
   <h2>ComfyUI Nodes</h2>
-  <p class="lead">A growing collection of high-quality ComfyUI nodes designed for precision, flexibility, and creative control in professional AI pipelines.</p>
+  <p class="lead">Explore Absynth's high-quality ComfyUI nodes designed for AI-powered music production, VST integration, and creative workflow automation.</p>
   <div class="cards">
-    <div class="card"><h3>Workflow-First Design</h3><p>Nodes engineered for real production graphs, not demos.</p></div>
-    <div class="card"><h3>Experimental & Practical</h3><p>Bridging cutting-edge ideas with usable tooling.</p></div>
-    <div class="card"><h3>Open & Evolving</h3><p>Fully open-source and continuously refined.</p></div>
+    <div class="card">
+      <h3>Absynth VST 1.3.4.1</h3>
+      <p>Super fast Comfy startup with Absynth VST nodes, fully optimized for smooth AI workflows.</p>
+    </div>
+    <div class="card">
+      <h3>Absynth VST 1.3.4</h3>
+      <p>Correct note recognition, perfect chord riffs, and harmonic arpeggios—fully quantized and ready to use.</p>
+    </div>
+    <div class="card">
+      <h3>Absynth VST 1.3.3</h3>
+      <p>Includes MIDI Analyzer and LLM Midi Looper to generate leads, basslines, pads, arps, and chord riffs from your chords automatically.</p>
+    </div>
+    <div class="card">
+      <h3>Absynth VST 1.3.1</h3>
+      <p>Improved Preset Maker for Serum 2: create sequences, arpeggiator presets, and add any effects prompted in your workflow.</p>
+    </div>
+    <div class="card">
+      <h3>VST Enhancements</h3>
+      <p>Glitch, drift fix, loop sync, and workflow-first design for professional production-ready pipelines.</p>
+    </div>
   </div>
 </section>
 
@@ -214,7 +220,6 @@ init();
 
 function animate(){
   ctx.clearRect(0,0,w,h);
-  // Draw lines
   for(let i=0;i<particles.length;i++){
     let p=particles[i];
     p.x+=p.vx;
@@ -226,7 +231,6 @@ function animate(){
     ctx.fillStyle=p.color;
     ctx.fill();
   }
-  // Connect nearby
   for(let i=0;i<particles.length;i++){
     for(let j=i+1;j<particles.length;j++){
       let dx=particles[i].x-particles[j].x;
