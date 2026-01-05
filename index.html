@@ -7,12 +7,13 @@
 
 <style>
 :root {
-  --bg: #0a0b14;
+  --bg: #070812;
   --panel: rgba(255,255,255,0.05);
   --text: #e6e8ee;
   --muted: #9aa0b4;
   --accent: #7cf3ff;
   --accent-2: #b18cff;
+  --neon: #00fff7;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,99 +28,138 @@ body {
   overflow-x: hidden;
 }
 
-/* ================= HERO / MATRIX ================= */
+/* ================= MATRIX ================= */
 
-header {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding: 140px 0 120px;
-}
-
-/* Full-width matrix */
 #matrixCanvas {
-  position: absolute;
-  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   pointer-events: none;
   z-index: 0;
-
   mask-image: linear-gradient(
     to bottom,
     rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 70%,
+    rgba(0,0,0,1) 65%,
     rgba(0,0,0,0) 100%
   );
 }
 
-/* Centered hero content */
-.hero-inner {
+/* ================= HERO ================= */
+
+header {
   position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  text-align: center;
+  padding: 140px 0 120px;
+  z-index: 1;
 }
 
-/* ================= LOGO ================= */
+.hero-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  text-align: center;
+  z-index: 2;
+}
+
+/* ================= ASCII LOGO ================= */
 
 pre.ascii-logo {
   font-family: 'Courier New', monospace;
-  font-size: 1.3rem;
-  line-height: 1.1;
+  font-size: clamp(0.45rem, 2.5vw, 1.3rem);
+  line-height: 1.05;
   color: var(--accent);
-  text-shadow: 0 0 8px var(--accent), 0 0 24px var(--accent-2);
+  text-shadow:
+    0 0 8px var(--accent),
+    0 0 24px var(--accent-2);
   margin-bottom: 24px;
+  white-space: pre;
+  max-width: 100%;
 }
 
-.hero-inner p {
-  max-width: 720px;
-  margin: 0 auto 40px;
-  color: var(--muted);
-}
-
-/* ================= BUTTONS ================= */
+/* ================= CYBERPUNK BUTTONS ================= */
 
 .cta {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 18px;
   flex-wrap: wrap;
+  margin-top: 32px;
 }
 
 .button {
-  padding: 14px 26px;
+  position: relative;
+  padding: 16px 34px;
+  color: var(--neon);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-  color: var(--text);
-  transition: 0.3s;
+  background: rgba(10,15,25,0.8);
+  overflow: hidden;
+  transition: transform 0.25s ease;
 }
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(124,243,255,0.5),
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  animation: sweep 3s infinite;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1px solid var(--neon);
+  box-shadow:
+    0 0 8px var(--neon),
+    inset 0 0 12px rgba(0,255,247,0.5);
+}
+
 .button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+  transform: scale(1.08);
 }
+
 .button.primary {
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   color: #02030a;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.button.primary::after {
   border: none;
+}
+
+@keyframes sweep {
+  0% { transform: translateX(-120%); }
+  50% { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
 }
 
 /* ================= SECTIONS ================= */
 
 section {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 100px 24px;
+  z-index: 1;
 }
 
 h2 {
   font-size: clamp(2rem, 4vw, 2.8rem);
   margin-bottom: 24px;
   color: var(--accent);
-  text-shadow: 0 0 10px var(--accent-2);
+  text-shadow: 0 0 12px var(--accent-2);
 }
 
 .lead {
@@ -137,15 +177,15 @@ h2 {
 }
 
 .card.featured {
-  background: rgba(20,20,30,0.85);
+  background: rgba(15,18,30,0.85);
   border: 1px solid rgba(255,255,255,0.12);
   padding: 24px;
   border-radius: 18px;
   transition: 0.3s;
 }
 .card.featured:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+  transform: translateY(-10px);
+  box-shadow: 0 0 24px var(--accent), 0 0 48px var(--accent-2);
 }
 .card.featured img {
   width: 100%;
@@ -168,9 +208,7 @@ h2 {
   gap: 32px;
 }
 
-.video.main {
-  padding-top: 56.25%;
-}
+.video.main { padding-top: 56.25%; }
 
 .video-grid {
   display: grid;
@@ -185,9 +223,7 @@ h2 {
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.2);
   box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
-  transition: 0.3s;
 }
-.video:hover { transform: scale(1.04); }
 
 .video iframe {
   position: absolute;
@@ -204,6 +240,8 @@ footer {
   text-align: center;
   color: var(--muted);
   border-top: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+  z-index: 1;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
@@ -212,11 +250,11 @@ footer {
 
 <body>
 
-<header>
-  <canvas id="matrixCanvas"></canvas>
+<canvas id="matrixCanvas"></canvas>
 
+<header>
   <div class="hero-inner">
-    <pre class="ascii-logo">
+    <pre id="asciiLogo" class="ascii-logo">
  █████╗ ██████╗ ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗
 ██╔══██╗██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║
 ███████║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║
@@ -228,33 +266,31 @@ footer {
     <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems.</p>
 
     <div class="cta">
-      <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
-      <a class="button" href="https://www.youtube.com/@Electric-Dreamz" target="_blank">Electric Dreams</a>
+      <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">VIEW NODES</a>
+      <a class="button" href="https://www.youtube.com/@Electric-Dreamz" target="_blank">ELECTRIC DREAMS</a>
     </div>
   </div>
 </header>
 
 <section>
   <h2>Featured ComfyUI Nodes</h2>
-  <p class="lead">Flagship Absynth nodes for music, film look creation, and AI-driven animation.</p>
+  <p class="lead">Flagship Absynth nodes for music, cinematic visuals, and AI-driven animation.</p>
 
   <div class="featured-cards">
     <div class="card featured">
-      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc2NDAyMzYsIm5iZiI6MTc2NzYzOTkzNiwicGF0aCI6Ii8yMjY4ODA4MDEvNTExODEzNjE2LTk4NjI3M2U4LWEzY2YtNGQyNC05YmUxLTA3MTg1NTZhNzdhMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwNVQxOTA1MzZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03YjA2NzVkZjhkYTMwNjAxYWY2ODA5YjM0ODZlYzBlN2Q1Y2IzZGI4Zjg1YjExNDRkZTk5ODljNWQwNzc4NmMyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.OTyuElMwl4fBW29OW5uK3mi2MkpHx7_FAtsUlR_UAdI">
+      <img src="https://private-user-images.githubusercontent.com/226880801/511813616-986273e8-a3cf-4d24-9be1-0718556a77a2.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc2NDExNzIsIm5iZiI6MTc2NzY0MDg3MiwicGF0aCI6Ii8yMjY4ODA4MDEvNTExODEzNjE2LTk4NjI3M2U4LWEzY2YtNGQyNC05YmUxLTA3MTg1NTZhNzdhMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwNVQxOTIxMTJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mNGQ3NTNlZWM0NjhmYTM0ZGVkNDJmMjhlMmJiZmYyNWRlYzI3NTEzZGZmZmM3ZTFiZDU0NDllMzU1ZGQxZjUyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.GFUlWjxF0CHy2psbiXwQhDKv8cYuerDxbRyNL1ZRBFI">
       <h3>Absynth VST</h3>
-      <p>Run VST instruments and effects directly inside ComfyUI graphs.</p>
+      <p>Integrate VST instruments and effects directly into ComfyUI graphs.</p>
     </div>
-
     <div class="card featured">
-      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/film-look.png">
+      <img src="https://private-user-images.githubusercontent.com/226880801/489251842-7a0ceb6b-0ef9-4a12-8c2b-03be9d5ba3f9.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc2NDExNzIsIm5iZiI6MTc2NzY0MDg3MiwicGF0aCI6Ii8yMjY4ODA4MDEvNDg5MjUxODQyLTdhMGNlYjZiLTBlZjktNGExMi04YzJiLTAzYmU5ZDViYTNmOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwNVQxOTIxMTJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05ODMzY2FlYzIyM2UyODIzZjRlMzg2NTFlYzY1YmM4MzkwOTVlNTE1NGMzNGNkNDZmNWVmYzljMWI1ZjRlNzFkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.HWQ8NpDADgb_xj4ZREYbHbikxg9Ggu0vLKc4p2YLflc">
       <h3>Film Look Creator</h3>
       <p>Cinematic grading, LUTs, bloom, and analog film aesthetics.</p>
     </div>
-
     <div class="card featured">
-      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/lipsync.png">
+      <img src="https://private-user-images.githubusercontent.com/226880801/486914012-09d40f4c-3a9c-44e0-aa52-c0d693889f8a.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njc2NDExNzIsIm5iZiI6MTc2NzY0MDg3MiwicGF0aCI6Ii8yMjY4ODA4MDEvNDg2OTE0MDEyLTA5ZDQwZjRjLTNhOWMtNDRlMC1hYTUyLWMwZDY5Mzg4OWY4YS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTA1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEwNVQxOTIxMTJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yMDIxMWRmYTNlNjBmMmZiNTljYTFkZGI1N2M0ODE5NjI5YjQ4Njg2YjhiNDUwYjFjMzkwNTUxODBjNDkwZDJhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.coR1ojOSeSGDHhcejMpQrcoxYFenwGFG24UEQyRBCfY">
       <h3>LipSync Correction</h3>
-      <p>AI-driven mouth alignment for animation and video.</p>
+      <p>AI-driven mouth alignment for animated video.</p>
     </div>
   </div>
 </section>
@@ -279,45 +315,64 @@ footer {
 <footer>© 2026 Absynth · Electric Dreams</footer>
 
 <script>
+/* ================= ASCII MORPH ================= */
+
+const logo = document.getElementById('asciiLogo');
+const finalText = logo.textContent;
+const chars = '█▓▒░<>/\\|=+*:.';
+let frame = 0;
+const morphFrames = 18;
+
+function morph() {
+  let out = '';
+  for (let i = 0; i < finalText.length; i++) {
+    if (finalText[i] === '\n' || finalText[i] === ' ') out += finalText[i];
+    else if (frame < morphFrames) out += chars[Math.floor(Math.random() * chars.length)];
+    else out += finalText[i];
+  }
+  logo.textContent = out;
+  frame++;
+  if (frame <= morphFrames) requestAnimationFrame(morph);
+}
+morph();
+
+/* ================= MATRIX RAIN ================= */
+
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
 
 function resize() {
   canvas.width = window.innerWidth;
-  canvas.height = canvas.parentElement.offsetHeight;
+  canvas.height = window.innerHeight;
 }
 resize();
 window.addEventListener('resize', resize);
 
 const fontSize = 16;
-let columns;
-let drops;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
 
-function resetMatrix() {
-  columns = Math.floor(canvas.width / fontSize);
-  drops = Array(columns).fill(1);
-}
-resetMatrix();
+let hue = 190;
+
+window.addEventListener('scroll', () => {
+  const scroll = Math.min(window.scrollY / 500, 1);
+  hue = 190 + scroll * 80;
+});
 
 function draw() {
-  ctx.fillStyle = 'rgba(10,11,20,0.08)';
+  ctx.fillStyle = 'rgba(7,8,18,0.08)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  ctx.fillStyle = 'rgba(124,243,255,0.35)';
+  ctx.fillStyle = `hsla(${hue},100%,70%,0.35)`;
   ctx.font = fontSize + 'px monospace';
 
   for (let i = 0; i < drops.length; i++) {
     const char = String.fromCharCode(0x30A0 + Math.random() * 96);
     ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) {
-      drops[i] = 0;
-    }
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) drops[i] = 0;
     drops[i] += 0.35;
   }
   requestAnimationFrame(draw);
 }
-
 draw();
 </script>
 
