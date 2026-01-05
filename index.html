@@ -16,7 +16,7 @@
   --accent-2: #b18cff;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin:0; padding:0; }
 
 body {
   font-family: 'Orbitron', sans-serif;
@@ -41,24 +41,34 @@ header {
   margin: 0 auto;
 }
 
+/* Glitch effect */
 header pre.ascii-logo {
   font-family: 'Courier New', Courier, monospace;
   font-size: 1.3rem;
   line-height: 1.1;
   color: var(--accent);
-  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2), 0 0 24px var(--accent);
+  text-shadow:
+    0 0 6px var(--accent),
+    0 0 12px var(--accent-2),
+    0 0 24px var(--accent);
   margin-bottom: 24px;
   display: inline-block;
-  animation: flicker 2s infinite alternate;
+  position: relative;
+  animation: glitch 2s infinite;
 }
 
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-  }
-  20%, 22%, 24%, 55% {
-    opacity: 0.4;
-  }
+@keyframes glitch {
+  0% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
+  10% { clip: rect(5px, 9999px, 80px, 0); transform: translate(-2px, -2px);}
+  20% { clip: rect(15px, 9999px, 70px, 0); transform: translate(2px, 2px);}
+  30% { clip: rect(35px, 9999px, 60px, 0); transform: translate(-1px, 1px);}
+  40% { clip: rect(45px, 9999px, 50px, 0); transform: translate(1px, -1px);}
+  50% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
+  60% { clip: rect(25px, 9999px, 55px, 0); transform: translate(-2px, 1px);}
+  70% { clip: rect(10px, 9999px, 65px, 0); transform: translate(2px, -1px);}
+  80% { clip: rect(40px, 9999px, 60px, 0); transform: translate(-1px, 2px);}
+  90% { clip: rect(20px, 9999px, 50px, 0); transform: translate(1px, -2px);}
+  100% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
 }
 
 header p {
@@ -139,6 +149,29 @@ section p.lead {
 .card h3 { margin-bottom: 12px; font-size: 1.25rem; }
 .card p { color: var(--muted); }
 
+/* Featured Node Cards */
+.featured-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 36px;
+  margin-top: 40px;
+}
+.card.featured {
+  background: rgba(20,20,30,0.85);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 24px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card.featured:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+}
+.card.featured h3 { margin-top: 20px; color: var(--accent); font-size: 1.5rem; }
+.card.featured p { color: var(--muted); margin-top: 8px; font-size:1rem; }
+.card.featured img { width: 100%; border-radius: 12px; }
+
 /* Video Section */
 .videos {
   display: grid;
@@ -180,6 +213,7 @@ footer {
 
 /* Import Orbitron font */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 </style>
 </head>
 <body>
@@ -200,13 +234,30 @@ footer {
   </div>
 </header>
 
-<section>
-  <h2>ComfyUI Nodes</h2>
-  <p class="lead">A growing collection of high-quality ComfyUI nodes designed for precision, flexibility, and creative control in professional AI pipelines.</p>
-  <div class="cards">
-    <div class="card"><h3>Workflow-First Design</h3><p>Nodes engineered for real production graphs, not demos.</p></div>
-    <div class="card"><h3>Experimental & Practical</h3><p>Bridging cutting-edge ideas with usable tooling.</p></div>
-    <div class="card"><h3>Open & Evolving</h3><p>Fully open-source and continuously refined.</p></div>
+<section id="nodes-featured">
+  <h2>Featured ComfyUI Nodes</h2>
+  <p class="lead">Explore Absynth's flagship ComfyUI nodes that take music and visual workflows to the next level.</p>
+
+  <div class="featured-cards">
+
+    <div class="card featured">
+      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/vst.png" alt="Absynth VST">
+      <h3>VST Plugins in ComfyUI – Absynth VST</h3>
+      <p>Integrate VST instruments and effects directly into ComfyUI graphs for generative music workflows and AI-assisted sound design.</p>
+    </div>
+
+    <div class="card featured">
+      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/film-look.png" alt="Film Look Creator">
+      <h3>Absynth Film Look Creator</h3>
+      <p>Create cinematic grading, analog film aesthetics, and atmospheric visuals directly in ComfyUI. LUTs, bloom, and grain for professional renders.</p>
+    </div>
+
+    <div class="card featured">
+      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/lipsync.png" alt="LipSync Correction">
+      <h3>Absynth LipSync Correction</h3>
+      <p>AI-driven lip sync correction for animated videos. Perfect mouth alignment for spoken audio and natural animation outputs.</p>
+    </div>
+
   </div>
 </section>
 
