@@ -1,186 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Absynth · ComfyUI Nodes & Electric Dreams</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Award-level ComfyUI nodes by Absynth. Advanced AI workflows, experimental tooling, and cinematic generative systems. Featuring the Electric Dreams YouTube channel." />
+<meta charset="UTF-8" />
+<title>Absynth · ComfyUI Nodes & Electric Dreams</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Award-level ComfyUI nodes by Absynth. Advanced AI workflows, experimental tooling, and cinematic generative systems. Featuring the Electric Dreams YouTube channel." />
 
-  <meta property="og:title" content="Absynth · ComfyUI Nodes & Electric Dreams" />
-  <meta property="og:description" content="Advanced ComfyUI nodes, AI workflows, and cinematic experiments by Absynth." />
-  <meta property="og:type" content="website" />
+<style>
+:root {
+  --bg: #0a0b14;
+  --panel: rgba(255,255,255,0.05);
+  --text: #e6e8ee;
+  --muted: #9aa0b4;
+  --accent: #7cf3ff;
+  --accent-2: #b18cff;
+}
 
-  <style>
-    :root {
-      --bg: #07090f;
-      --panel: rgba(255,255,255,0.04);
-      --text: #e6e8ee;
-      --muted: #9aa0b4;
-      --accent: #7cf3ff;
-      --accent-2: #b18cff;
-    }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Orbitron', sans-serif;
+  background:
+    radial-gradient(1200px 600px at 70% -10%, rgba(177,140,255,0.12), transparent),
+    radial-gradient(900px 500px at -10% 20%, rgba(124,243,255,0.10), transparent),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
-      background:
-        radial-gradient(1200px 600px at 70% -10%, rgba(177,140,255,0.12), transparent),
-        radial-gradient(900px 500px at -10% 20%, rgba(124,243,255,0.10), transparent),
-        var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+/* Links */
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+/* ASCII Logo Header */
+header {
+  padding: 100px 24px 80px;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-    header {
-      padding: 120px 24px 100px;
-      text-align: center;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+header pre.ascii-logo {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.3rem;
+  line-height: 1.1;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2), 0 0 24px var(--accent);
+  margin-bottom: 24px;
+  display: inline-block;
+  animation: flicker 2s infinite alternate;
+}
 
-    header h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 22%, 24%, 55% {
+    opacity: 0.4;
+  }
+}
 
-    header p {
-      max-width: 720px;
-      margin: 0 auto 40px;
-      font-size: 1.15rem;
-      color: var(--muted);
-    }
+header p {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  font-size: 1.15rem;
+  color: var(--muted);
+  text-shadow: 0 0 2px #000;
+}
 
-    .cta {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+.cta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-    .button {
-      padding: 14px 26px;
-      border-radius: 999px;
-      font-weight: 600;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
-      backdrop-filter: blur(6px);
-    }
+.button {
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  backdrop-filter: blur(6px);
+  color: var(--text);
+  transition: 0.3s;
+}
+.button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+}
+.button.primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #02030a;
+  border: none;
+}
 
-    .button.primary {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: #02030a;
-      border: none;
-    }
+/* Sections */
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
 
-    section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 24px;
-    }
+section h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2);
+}
 
-    section h2 {
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      margin-bottom: 24px;
-      letter-spacing: -0.01em;
-    }
+section p.lead {
+  max-width: 720px;
+  color: var(--muted);
+  margin-bottom: 48px;
+  font-size: 1.1rem;
+}
 
-    section p.lead {
-      max-width: 720px;
-      color: var(--muted);
-      margin-bottom: 48px;
-      font-size: 1.1rem;
-    }
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 28px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+}
+.card h3 { margin-bottom: 12px; font-size: 1.25rem; }
+.card p { color: var(--muted); }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
+/* Video Section */
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 32px;
+}
 
-    .card {
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 28px;
-      backdrop-filter: blur(8px);
-    }
+.video {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, #0c0d1a 0%, #1a0022 100%);
+  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.video:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 32px var(--accent), 0 0 64px var(--accent-2);
+}
+.video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 18px;
+}
 
-    .card h3 {
-      margin-bottom: 12px;
-      font-size: 1.25rem;
-    }
+/* Footer */
+footer {
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-shadow: 0 0 2px #000;
+}
 
-    .videos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-    }
-
-    .video {
-      position: relative;
-      padding-top: 56.25%;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: #000;
-    }
-
-    .video iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    footer {
-      padding: 60px 24px;
-      text-align: center;
-      color: var(--muted);
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-  </style>
+/* Import Orbitron font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+</style>
 </head>
 <body>
-  <header>
-    <h1>Absynth</h1>
-    <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems. Built for artists, researchers, and creators who push beyond presets.</p>
-    <div class="cta">
-      <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
-      <a class="button" href="https://www.youtube.com/@Electric-Dreamz" target="_blank">Electric Dreams on YouTube</a>
-    </div>
-  </header>
 
-  <section>
-    <h2>ComfyUI Nodes</h2>
-    <p class="lead">A growing collection of high-quality ComfyUI nodes designed for precision, flexibility, and creative control in professional AI pipelines.</p>
-    <div class="cards">
-      <div class="card"><h3>Workflow-First Design</h3><p>Nodes engineered for real production graphs, not demos.</p></div>
-      <div class="card"><h3>Experimental & Practical</h3><p>Bridging cutting-edge ideas with usable tooling.</p></div>
-      <div class="card"><h3>Open & Evolving</h3><p>Fully open-source and continuously refined.</p></div>
-    </div>
-  </section>
+<header>
+  <pre class="ascii-logo">
+ █████╗ ██████╗ ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗
+██╔══██╗██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║
+███████║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║
+██╔══██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║   ██║   ██╔══██║
+██║  ██║██████╔╝███████║   ██║   ██║ ╚████║   ██║   ██║  ██║
+╚═╝  ╚═╝╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝
+  </pre>
+  <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems. Built for artists, researchers, and creators who push beyond presets.</p>
+  <div class="cta">
+    <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
+    <a class="button" href="https://www.youtube.com/@Electric-Dreamz" target="_blank">Electric Dreams on YouTube</a>
+  </div>
+</header>
 
-  <section>
-    <h2>Electric Dreams</h2>
-    <p class="lead">Cinematic AI, cyberpunk aesthetics, music-driven visuals, and experimental generative art.</p>
-    <div class="videos">
-      <div class="video"><iframe src="https://www.youtube.com/embed/X1SB5PB1ZF8" allowfullscreen></iframe></div>
-      <div class="video"><iframe src="https://www.youtube.com/embed/Rt3g1KvHbgQ" allowfullscreen></iframe></div>
-      <div class="video"><iframe src="https://www.youtube.com/embed/-4kXqLk-yMo" allowfullscreen></iframe></div>
-      <div class="video"><iframe src="https://www.youtube.com/embed/kaCOiCbT59Y" allowfullscreen></iframe></div>
-    </div>
-  </section>
+<section>
+  <h2>ComfyUI Nodes</h2>
+  <p class="lead">A growing collection of high-quality ComfyUI nodes designed for precision, flexibility, and creative control in professional AI pipelines.</p>
+  <div class="cards">
+    <div class="card"><h3>Workflow-First Design</h3><p>Nodes engineered for real production graphs, not demos.</p></div>
+    <div class="card"><h3>Experimental & Practical</h3><p>Bridging cutting-edge ideas with usable tooling.</p></div>
+    <div class="card"><h3>Open & Evolving</h3><p>Fully open-source and continuously refined.</p></div>
+  </div>
+</section>
 
-  <footer>© 2026 Absynth · Built with GitHub Pages · Electric Dreams</footer>
+<section>
+  <h2>Electric Dreams</h2>
+  <p class="lead">Cinematic AI, cyberpunk aesthetics, music-driven visuals, and experimental generative art.</p>
+  <div class="videos">
+    <div class="video"><iframe src="https://www.youtube.com/embed/X1SB5PB1ZF8" allowfullscreen></iframe></div>
+    <div class="video"><iframe src="https://www.youtube.com/embed/Rt3g1KvHbgQ" allowfullscreen></iframe></div>
+    <div class="video"><iframe src="https://www.youtube.com/embed/-4kXqLk-yMo" allowfullscreen></iframe></div>
+    <div class="video"><iframe src="https://www.youtube.com/embed/kaCOiCbT59Y" allowfullscreen></iframe></div>
+  </div>
+</section>
+
+<footer>© 2026 Absynth · Built with GitHub Pages · Electric Dreams</footer>
+
 </body>
 </html>
