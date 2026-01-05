@@ -76,6 +76,14 @@ pre.ascii-logo {
   margin-bottom: 24px;
   white-space: pre;
   max-width: 100%;
+  overflow: hidden;
+}
+
+/* ✅ MOBILE FIX — NO SCROLLBAR, NO CUT */
+@media (max-width: 600px) {
+  pre.ascii-logo {
+    font-size: clamp(0.42rem, 2.1vw, 0.95rem);
+  }
 }
 
 /* ================= CYBERPUNK BUTTONS ================= */
@@ -109,7 +117,7 @@ pre.ascii-logo {
     120deg,
     transparent 20%,
     rgba(124,243,255,0.5),
-    transparent 50%
+    transparent 80%
   );
   transform: translateX(-120%);
   animation: sweep 3s infinite;
