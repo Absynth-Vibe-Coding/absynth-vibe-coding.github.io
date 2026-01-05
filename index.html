@@ -14,7 +14,10 @@
   --accent-2: #b18cff;
   --neon: #00fff7;
 }
-
+.shorts-grid iframe {
+  max-width: 100%;
+  height: auto;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { overflow-x: hidden; }
 
@@ -370,6 +373,77 @@ addEventListener('scroll',()=>{hue=190+Math.min(scrollY/500,1)*80});
 
 function draw(){ctx.fillStyle='rgba(7,8,18,0.08)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=`hsla(${hue},100%,70%,0.35)`;ctx.font=fontSize+'px monospace';for(let i=0;i<drops.length;i++){ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>canvas.height&&Math.random()>0.99)drops[i]=0;drops[i]+=0.35}requestAnimationFrame(draw)}draw();
 </script>
+
+<section id="youtube-shorts" style="padding: 2rem; background: #f9f9f9; text-align: center;">
+  <h2 style="font-family: Arial, sans-serif; color: #222; margin-bottom: 1rem;">
+    🎬 Latest YouTube Shorts
+  </h2>
+  <p style="font-family: Arial, sans-serif; color: #555; margin-bottom: 2rem;">
+    Check out my quick coding clips and highlights!
+  </p>
+
+  <div class="shorts-grid" style="
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      justify-items: center;
+  ">
+    <!-- Short #1 -->
+    <iframe width="315" height="560" 
+      src="https://www.youtube.com/embed/gULMIHvBuRI"
+      title="YouTube Shorts video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+
+    <!-- Short #2 -->
+    <iframe width="315" height="560"
+      src="https://www.youtube.com/embed/ASFn9Q7zTSA"
+      title="YouTube Shorts video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+
+    <!-- Short #3 -->
+    <iframe width="315" height="560"
+      src="https://www.youtube.com/embed/7Yy34HyUo0c"
+      title="YouTube Shorts video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+
+    <!-- Short #4 -->
+    <iframe width="315" height="560"
+      src="https://www.youtube.com/embed/4SxV5o0Ecjs"
+      title="YouTube Shorts video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+
+    <!-- Short #5 -->
+    <iframe width="315" height="560"
+      src="https://www.youtube.com/embed/oWRiAd12cKs"
+      title="YouTube Shorts video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+
+    <!-- Short #6 -->
+    <iframe width="315" height="560"
+      src="https://www.youtube.com/embed/NwGSDykUOnw"
+      title="YouTube Shorts video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
 
 </body>
 </html>
