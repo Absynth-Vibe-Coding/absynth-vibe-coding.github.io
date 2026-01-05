@@ -374,75 +374,45 @@ addEventListener('scroll',()=>{hue=190+Math.min(scrollY/500,1)*80});
 function draw(){ctx.fillStyle='rgba(7,8,18,0.08)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle=`hsla(${hue},100%,70%,0.35)`;ctx.font=fontSize+'px monospace';for(let i=0;i<drops.length;i++){ctx.fillText(String.fromCharCode(0x30A0+Math.random()*96),i*fontSize,drops[i]*fontSize);if(drops[i]*fontSize>canvas.height&&Math.random()>0.99)drops[i]=0;drops[i]+=0.35}requestAnimationFrame(draw)}draw();
 </script>
 
-<section id="youtube-shorts" style="padding: 2rem; background: #f9f9f9; text-align: center;">
-  <h2 style="font-family: Arial, sans-serif; color: #222; margin-bottom: 1rem;">
-    🎬 Latest YouTube Shorts
-  </h2>
-  <p style="font-family: Arial, sans-serif; color: #555; margin-bottom: 2rem;">
-    Check out my quick coding clips and highlights!
+<section id="youtube-shorts" style="padding: 2rem; background: #111; color: #fff;">
+  <h2 style="font-family: Arial, sans-serif; margin-bottom: 1rem;">🎬 YouTube Shorts</h2>
+  <p style="font-family: Arial, sans-serif; color: #aaa; margin-bottom: 1rem;">
+    Quick clips and highlights from my coding adventures
   </p>
 
-  <div class="shorts-grid" style="
-      display: grid;
+  <div class="shorts-row" style="
+      display: flex;
+      overflow-x: auto;
       gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      justify-items: center;
+      padding-bottom: 1rem;
   ">
-    <!-- Short #1 -->
-    <iframe width="315" height="560" 
-      src="https://www.youtube.com/embed/gULMIHvBuRI"
-      title="YouTube Shorts video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-
-    <!-- Short #2 -->
-    <iframe width="315" height="560"
-      src="https://www.youtube.com/embed/ASFn9Q7zTSA"
-      title="YouTube Shorts video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-
-    <!-- Short #3 -->
-    <iframe width="315" height="560"
-      src="https://www.youtube.com/embed/7Yy34HyUo0c"
-      title="YouTube Shorts video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-
-    <!-- Short #4 -->
-    <iframe width="315" height="560"
-      src="https://www.youtube.com/embed/4SxV5o0Ecjs"
-      title="YouTube Shorts video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-
-    <!-- Short #5 -->
-    <iframe width="315" height="560"
-      src="https://www.youtube.com/embed/oWRiAd12cKs"
-      title="YouTube Shorts video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-
-    <!-- Short #6 -->
-    <iframe width="315" height="560"
-      src="https://www.youtube.com/embed/NwGSDykUOnw"
-      title="YouTube Shorts video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
+    <a href="https://www.youtube.com/shorts/gULMIHvBuRI" target="_blank" style="flex: 0 0 auto;">
+      <img src="https://img.youtube.com/vi/gULMIHvBuRI/hqdefault.jpg" 
+           alt="Short 1" style="border-radius: 8px; width: 200px; height: 360px; object-fit: cover;">
+    </a>
+    <a href="https://www.youtube.com/shorts/ASFn9Q7zTSA" target="_blank" style="flex: 0 0 auto;">
+      <img src="https://img.youtube.com/vi/ASFn9Q7zTSA/hqdefault.jpg" 
+           alt="Short 2" style="border-radius: 8px; width: 200px; height: 360px; object-fit: cover;">
+    </a>
+    <a href="https://www.youtube.com/shorts/7Yy34HyUo0c" target="_blank" style="flex: 0 0 auto;">
+      <img src="https://img.youtube.com/vi/7Yy34HyUo0c/hqdefault.jpg" 
+           alt="Short 3" style="border-radius: 8px; width: 200px; height: 360px; object-fit: cover;">
+    </a>
+    <a href="https://www.youtube.com/shorts/4SxV5o0Ecjs" target="_blank" style="flex: 0 0 auto;">
+      <img src="https://img.youtube.com/vi/4SxV5o0Ecjs/hqdefault.jpg" 
+           alt="Short 4" style="border-radius: 8px; width: 200px; height: 360px; object-fit: cover;">
+    </a>
+    <a href="https://www.youtube.com/shorts/oWRiAd12cKs" target="_blank" style="flex: 0 0 auto;">
+      <img src="https://img.youtube.com/vi/oWRiAd12cKs/hqdefault.jpg" 
+           alt="Short 5" style="border-radius: 8px; width: 200px; height: 360px; object-fit: cover;">
+    </a>
+    <a href="https://www.youtube.com/shorts/NwGSDykUOnw" target="_blank" style="flex: 0 0 auto;">
+      <img src="https://img.youtube.com/vi/NwGSDykUOnw/hqdefault.jpg" 
+           alt="Short 6" style="border-radius: 8px; width: 200px; height: 360px; object-fit: cover;">
+    </a>
   </div>
 </section>
+
 
 
 </body>
