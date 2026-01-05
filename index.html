@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <title>Absynth · ComfyUI Nodes & Electric Dreams</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Award-level ComfyUI nodes by Absynth. Advanced AI workflows, experimental tooling, and cinematic generative systems. Featuring the Electric Dreams YouTube channel." />
 
 <style>
 :root {
@@ -25,71 +24,63 @@ body {
     radial-gradient(900px 500px at -10% 20%, rgba(124,243,255,0.10), transparent),
     var(--bg);
   color: var(--text);
-  line-height: 1.6;
   overflow-x: hidden;
-  position: relative;
 }
 
-/* Canvas for Matrix rain */
+/* ================= HERO / MATRIX ================= */
+
+header {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 140px 0 120px;
+}
+
+/* Full-width matrix */
 #matrixCanvas {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 300px; /* only behind header */
+  inset: 0;
+  width: 100vw;
+  height: 100%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 70%,
+    rgba(0,0,0,0) 100%
+  );
 }
 
-/* Links */
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-/* ASCII Logo Header */
-header {
-  padding: 100px 24px 80px;
-  text-align: center;
+/* Centered hero content */
+.hero-inner {
+  position: relative;
+  z-index: 2;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
 }
 
-/* Glitch effect */
-header pre.ascii-logo {
-  font-family: 'Courier New', Courier, monospace;
+/* ================= LOGO ================= */
+
+pre.ascii-logo {
+  font-family: 'Courier New', monospace;
   font-size: 1.3rem;
   line-height: 1.1;
   color: var(--accent);
-  text-shadow:
-    0 0 6px var(--accent),
-    0 0 12px var(--accent-2),
-    0 0 24px var(--accent);
+  text-shadow: 0 0 8px var(--accent), 0 0 24px var(--accent-2);
   margin-bottom: 24px;
-  display: inline-block;
-  position: relative;
-  animation: glitch 2s infinite;
 }
 
-@keyframes glitch {
-  0% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
-  10% { clip: rect(5px, 9999px, 80px, 0); transform: translate(-2px, -2px);}
-  20% { clip: rect(15px, 9999px, 70px, 0); transform: translate(2px, 2px);}
-  30% { clip: rect(35px, 9999px, 60px, 0); transform: translate(-1px, 1px);}
-  40% { clip: rect(45px, 9999px, 50px, 0); transform: translate(1px, -1px);}
-  50% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
-  60% { clip: rect(25px, 9999px, 55px, 0); transform: translate(-2px, 1px);}
-  70% { clip: rect(10px, 9999px, 65px, 0); transform: translate(2px, -1px);}
-  80% { clip: rect(40px, 9999px, 60px, 0); transform: translate(-1px, 2px);}
-  90% { clip: rect(20px, 9999px, 50px, 0); transform: translate(1px, -2px);}
-  100% { clip: rect(0, 9999px, 0, 0); transform: translate(0);}
-}
-
-header p {
+.hero-inner p {
   max-width: 720px;
   margin: 0 auto 40px;
-  font-size: 1.15rem;
   color: var(--muted);
-  text-shadow: 0 0 2px #000;
 }
+
+/* ================= BUTTONS ================= */
 
 .cta {
   display: flex;
@@ -101,10 +92,8 @@ header p {
 .button {
   padding: 14px 26px;
   border-radius: 999px;
-  font-weight: 600;
   border: 1px solid rgba(255,255,255,0.15);
   background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-  backdrop-filter: blur(6px);
   color: var(--text);
   transition: 0.3s;
 }
@@ -118,77 +107,75 @@ header p {
   border: none;
 }
 
-/* Sections */
+/* ================= SECTIONS ================= */
+
 section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 24px;
 }
 
-section h2 {
+h2 {
   font-size: clamp(2rem, 4vw, 2.8rem);
   margin-bottom: 24px;
-  letter-spacing: -0.01em;
   color: var(--accent);
-  text-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2);
+  text-shadow: 0 0 10px var(--accent-2);
 }
 
-section p.lead {
+.lead {
   max-width: 720px;
   color: var(--muted);
   margin-bottom: 48px;
-  font-size: 1.1rem;
 }
 
-/* Cards */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-.card {
-  background: var(--panel);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 28px;
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
-}
-.card h3 { margin-bottom: 12px; font-size: 1.25rem; }
-.card p { color: var(--muted); }
+/* ================= FEATURED NODES ================= */
 
-/* Featured Node Cards */
 .featured-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
   gap: 36px;
-  margin-top: 40px;
 }
+
 .card.featured {
   background: rgba(20,20,30,0.85);
   border: 1px solid rgba(255,255,255,0.12);
   padding: 24px;
   border-radius: 18px;
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: 0.3s;
 }
 .card.featured:hover {
   transform: translateY(-8px);
   box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
 }
-.card.featured h3 { margin-top: 20px; color: var(--accent); font-size: 1.5rem; }
-.card.featured p { color: var(--muted); margin-top: 8px; font-size:1rem; }
-.card.featured img { width: 100%; border-radius: 12px; }
+.card.featured img {
+  width: 100%;
+  border-radius: 12px;
+}
+.card.featured h3 {
+  margin-top: 20px;
+  color: var(--accent);
+}
+.card.featured p {
+  color: var(--muted);
+  margin-top: 8px;
+}
 
-/* Video Section */
+/* ================= VIDEO SECTION ================= */
+
 .videos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 32px;
+}
+
+.video.main {
+  padding-top: 56.25%;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap: 24px;
 }
 
 .video {
@@ -197,123 +184,140 @@ section p.lead {
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.2);
-  background: linear-gradient(135deg, #0c0d1a 0%, #1a0022 100%);
   box-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-2);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: 0.3s;
 }
-.video:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 32px var(--accent), 0 0 64px var(--accent-2);
-}
+.video:hover { transform: scale(1.04); }
+
 .video iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
-  border-radius: 18px;
 }
 
-/* Footer */
+/* ================= FOOTER ================= */
+
 footer {
   padding: 60px 24px;
   text-align: center;
   color: var(--muted);
   border-top: 1px solid rgba(255,255,255,0.08);
-  text-shadow: 0 0 2px #000;
 }
 
-/* Import Orbitron font */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 </style>
 </head>
+
 <body>
 
-<canvas id="matrixCanvas"></canvas>
-
 <header>
-  <pre class="ascii-logo">
+  <canvas id="matrixCanvas"></canvas>
+
+  <div class="hero-inner">
+    <pre class="ascii-logo">
  █████╗ ██████╗ ███████╗██╗   ██╗███╗   ██╗████████╗██╗  ██╗
 ██╔══██╗██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║╚══██╔══╝██║  ██║
 ███████║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║   ██║   ███████║
 ██╔══██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║   ██║   ██╔══██║
 ██║  ██║██████╔╝███████║   ██║   ██║ ╚████║   ██║   ██║  ██║
 ╚═╝  ╚═╝╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝
-  </pre>
-  <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems. Built for artists, researchers, and creators who push beyond presets.</p>
-  <div class="cta">
-    <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
-    <a class="button" href="https://www.youtube.com/@Electric-Dreamz" target="_blank">Electric Dreams on YouTube</a>
+    </pre>
+
+    <p>Advanced ComfyUI nodes, experimental AI workflows, and cinematic generative systems.</p>
+
+    <div class="cta">
+      <a class="button primary" href="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes" target="_blank">View ComfyUI Nodes</a>
+      <a class="button" href="https://www.youtube.com/@Electric-Dreamz" target="_blank">Electric Dreams</a>
+    </div>
   </div>
 </header>
 
-<section id="nodes-featured">
+<section>
   <h2>Featured ComfyUI Nodes</h2>
-  <p class="lead">Explore Absynth's flagship ComfyUI nodes that take music and visual workflows to the next level.</p>
+  <p class="lead">Flagship Absynth nodes for music, film look creation, and AI-driven animation.</p>
 
   <div class="featured-cards">
     <div class="card featured">
-      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/vst.png" alt="Absynth VST">
-      <h3>VST Plugins in ComfyUI – Absynth VST</h3>
-      <p>Integrate VST instruments and effects directly into ComfyUI graphs for generative music workflows and AI-assisted sound design.</p>
+      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/vst.png">
+      <h3>Absynth VST</h3>
+      <p>Run VST instruments and effects directly inside ComfyUI graphs.</p>
     </div>
+
     <div class="card featured">
-      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/film-look.png" alt="Film Look Creator">
-      <h3>Absynth Film Look Creator</h3>
-      <p>Create cinematic grading, analog film aesthetics, and atmospheric visuals directly in ComfyUI. LUTs, bloom, and grain for professional renders.</p>
+      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/film-look.png">
+      <h3>Film Look Creator</h3>
+      <p>Cinematic grading, LUTs, bloom, and analog film aesthetics.</p>
     </div>
+
     <div class="card featured">
-      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/lipsync.png" alt="LipSync Correction">
-      <h3>Absynth LipSync Correction</h3>
-      <p>AI-driven lip sync correction for animated videos. Perfect mouth alignment for spoken audio and natural animation outputs.</p>
+      <img src="https://github.com/Absynth-Vibe-Coding/Comfy-UI-Nodes/raw/main/images/lipsync.png">
+      <h3>LipSync Correction</h3>
+      <p>AI-driven mouth alignment for animation and video.</p>
     </div>
   </div>
 </section>
 
 <section>
   <h2>Electric Dreams</h2>
-  <p class="lead">Cinematic AI, cyberpunk aesthetics, music-driven visuals, and experimental generative art.</p>
+  <p class="lead">Cinematic AI, cyberpunk aesthetics, music-driven visuals.</p>
+
   <div class="videos">
-    <div class="video"><iframe src="https://www.youtube.com/embed/X1SB5PB1ZF8" allowfullscreen></iframe></div>
-    <div class="video"><iframe src="https://www.youtube.com/embed/Rt3g1KvHbgQ" allowfullscreen></iframe></div>
-    <div class="video"><iframe src="https://www.youtube.com/embed/-4kXqLk-yMo" allowfullscreen></iframe></div>
-    <div class="video"><iframe src="https://www.youtube.com/embed/kaCOiCbT59Y" allowfullscreen></iframe></div>
+    <div class="video main">
+      <iframe src="https://www.youtube.com/embed/X1SB5PB1ZF8" allowfullscreen></iframe>
+    </div>
+
+    <div class="video-grid">
+      <div class="video"><iframe src="https://www.youtube.com/embed/Rt3g1KvHbgQ" allowfullscreen></iframe></div>
+      <div class="video"><iframe src="https://www.youtube.com/embed/-4kXqLk-yMo" allowfullscreen></iframe></div>
+      <div class="video"><iframe src="https://www.youtube.com/embed/kaCOiCbT59Y" allowfullscreen></iframe></div>
+    </div>
   </div>
 </section>
 
-<footer>© 2026 Absynth · Built with GitHub Pages · Electric Dreams</footer>
+<footer>© 2026 Absynth · Electric Dreams</footer>
 
 <script>
-// MATRIX RAIN
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = 300; // only header height
-const columns = Math.floor(w / 14);
-const drops = Array(columns).fill(1);
 
-window.addEventListener('resize', ()=>{
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = 300;
-});
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = canvas.parentElement.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const fontSize = 16;
+let columns;
+let drops;
+
+function resetMatrix() {
+  columns = Math.floor(canvas.width / fontSize);
+  drops = Array(columns).fill(1);
+}
+resetMatrix();
 
 function draw() {
-  ctx.fillStyle = 'rgba(10,11,20,0.1)'; // transparent background
-  ctx.fillRect(0,0,w,h);
+  ctx.fillStyle = 'rgba(10,11,20,0.08)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  ctx.fillStyle = 'rgba(124,243,255,0.3)'; // Absynth color with transparency
-  ctx.font = '14px monospace';
+  ctx.fillStyle = 'rgba(124,243,255,0.35)';
+  ctx.font = fontSize + 'px monospace';
 
-  for(let i=0;i<drops.length;i++){
-    const text = String.fromCharCode(0x30A0 + Math.floor(Math.random()*96));
-    ctx.fillText(text, i*14, drops[i]*14);
+  for (let i = 0; i < drops.length; i++) {
+    const char = String.fromCharCode(0x30A0 + Math.random() * 96);
+    ctx.fillText(char, i * fontSize, drops[i] * fontSize);
 
-    if(drops[i]*14 > h && Math.random() > 0.975) drops[i]=0;
-    drops[i]++;
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) {
+      drops[i] = 0;
+    }
+    drops[i] += 0.35;
   }
-
   requestAnimationFrame(draw);
 }
+
 draw();
 </script>
 
